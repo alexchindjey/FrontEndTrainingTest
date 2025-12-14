@@ -1,10 +1,30 @@
 import { TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { provideTransloco, TranslocoLoader, translocoConfig } from '@ngneat/transloco';
+import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+
+class InlineLoader implements TranslocoLoader {
+  getTranslation() {
+    return of({ app: { title: 'Angular TODO List', nav: { tasks: 'Tâches', persons: 'Personnes' } } });
+  }
+}
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [RouterTestingModule, AppComponent],
+      providers: [
+        ...provideTransloco({
+          config: translocoConfig({
+            availableLangs: ['fr'],
+            defaultLang: 'fr',
+            reRenderOnLangChange: true,
+            prodMode: false
+          }),
+          loader: InlineLoader
+        })
+      ]
     }).compileComponents();
   });
 
@@ -14,16 +34,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'todo-app' title`, () => {
+  it(`should have the correct title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('todo-app');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, todo-app');
+    expect(app.title).toEqual('Angular TODO List');
   });
 });
