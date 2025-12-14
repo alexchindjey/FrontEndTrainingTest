@@ -64,16 +64,29 @@ export class SmartTableComponent implements OnChanges {
     this.custom.emit({ action, data: row });
   }
 
-  private extractName(row: any, col: SmartTableColumn, value: any): string {
-    if (col.field?.includes('.')) {
-      return col.field.split('.').reduce((acc: any, part) => acc?.[part], row) ?? '';
-    }
-    const candidate = col.field ? row?.[col.field] : value;
+  resolveName(row: any, field: string, fallback: any): string {
+    const candidate = this.resolveField(row, field, fallback);
     if (typeof candidate === 'string') return candidate;
-    if (candidate && typeof candidate === 'object') {
-      if ('name' in candidate && typeof candidate.name === 'string') return candidate.name;
+    if (candidate && typeof candidate === 'object' && 'name' in candidate && typeof candidate.name === 'string') {
+      return candidate.name;
     }
     return '';
+  }
+
+  private extractName(row: any, col: SmartTableColumn, value: any): string {
+    const candidate = this.resolveField(row, col.field, value);
+    if (typeof candidate === 'string') return candidate;
+    if (candidate && typeof candidate === 'object' && 'name' in candidate && typeof candidate.name === 'string') {
+      return candidate.name;
+    }
+    return '';
+  }
+
+  private resolveField(row: any, field: string | undefined, fallback: any): any {
+    if (field?.includes('.')) {
+      return field.split('.').reduce((acc: any, part) => acc?.[part], row) ?? fallback;
+    }
+    return field ? row?.[field] : fallback;
   }
 
   private initials(name: string): string {
