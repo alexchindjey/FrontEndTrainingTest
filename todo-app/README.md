@@ -56,24 +56,8 @@ npm start             # front sur http://localhost:4200
 - Builder Angular : webpack (`@angular-devkit/build-angular:browser`) pour éviter les soucis esbuild.
 - ng2-smart-table : remplacé par un tableau Material custom (ng2-smart-table incompatible Angular 18/Ivy).
 
-## 🐳 Docker / déploiement Nginx
+## Déploiement simple (Nginx)
 
-Build et image :
-
-```bash
-docker build -t todo-app .
-docker run -p 8080:80 todo-app
-```
-
-L’image utilise un multi-stage (Node 20 pour le build, Nginx pour le statique) et un `nginx.conf` déjà configuré pour une SPA (`try_files ... /index.html`). Les fichiers générés sont servis depuis `/usr/share/nginx/html`.
-
-Sur un serveur avec un Nginx frontal (SSL, vhost), placez le contenu de `dist/todo-app` ou montez le conteneur derrière votre reverse-proxy. Votre vhost peut suivre ce schéma :
-
-```
-server {
-    server_name test.oplatforms.com;
-    root /var/www/test;  # ou proxy_pass vers le conteneur
-    index index.html;
-    location / { try_files $uri $uri/ /index.html; }
-}
-```
+1. Builder en prod : `npm run build -- --configuration production`
+2. Copier le contenu de `dist/todo-app` sur votre serveur (ex : `/var/www/test`).
+3. Nginx doit avoir `root /var/www/test;` et `try_files $uri $uri/ /index.html;` pour la SPA.
