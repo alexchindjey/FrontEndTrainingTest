@@ -100,11 +100,17 @@ export class TodoListComponent implements OnInit {
       })
       .subscribe({
         next: (result) => {
+          const withPerson = result.data.map((todo) => {
+            if (todo.person) return todo;
+            const linkedPerson = this.persons.find((p) => String(p.id) === String(todo.personId));
+            return linkedPerson ? { ...todo, person: linkedPerson } : todo;
+          });
+
           const filtered = combinedLabels.length
-            ? result.data.filter((todo) =>
+            ? withPerson.filter((todo) =>
                 combinedLabels.every((label) => (todo.labels || []).includes(label as TodoLabel))
               )
-            : result.data;
+            : withPerson;
 
           const totalPages = Math.max(Math.ceil(filtered.length / this.pageSize) - 1, 0);
           if (this.pageIndex > totalPages) {
@@ -182,8 +188,8 @@ export class TodoListComponent implements OnInit {
   }
 
   avatarInitials(todo: Todo): string {
-    const name = todo.person?.name ?? '';
-    return name
+    const base = todo.person?.name || todo.title || '';
+    return base
       .split(/\s+/)
       .filter(Boolean)
       .slice(0, 2)
