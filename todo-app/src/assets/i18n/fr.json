@@ -21,7 +21,7 @@
     "subtitle": "Tableau en lecture seule, actions via modale et filtres.",
     "priority": "Priorité",
     "label": "Label",
-    "filters": {"all": "Toutes"},
+    "filters": {"all": "Toutes", "pending": "En cours", "completed": "Terminées"},
     "columns": {
       "title": "Titre",
       "person": "Personne",

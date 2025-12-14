@@ -13,6 +13,7 @@ export interface TodoQueryParams {
   limit?: number;
   priority?: TodoPriority;
   label?: TodoLabel;
+  completed?: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -26,6 +27,7 @@ export class TodoService {
     if (params.limit) httpParams = httpParams.set('_limit', params.limit);
     if (params.priority) httpParams = httpParams.set('priority', params.priority);
     if (params.label) httpParams = httpParams.set('labels_like', params.label);
+    if (params.completed !== undefined) httpParams = httpParams.set('completed', params.completed);
 
     return this.http
       .get<Todo[]>(this.baseUrl, { params: httpParams, observe: 'response' })

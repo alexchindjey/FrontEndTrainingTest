@@ -21,7 +21,7 @@
     "subtitle": "Read-only table, actions via modal and filters.",
     "priority": "Priority",
     "label": "Label",
-    "filters": {"all": "All"},
+    "filters": {"all": "All", "pending": "Pending", "completed": "Completed"},
     "columns": {
       "title": "Title",
       "person": "Person",

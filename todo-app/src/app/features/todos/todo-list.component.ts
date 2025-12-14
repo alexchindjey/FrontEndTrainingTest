@@ -83,9 +83,10 @@ export class TodoListComponent implements OnInit {
   pageIndex = 0;
   pageSize = 5;
   total = 0;
-  filters: { priority?: TodoPriority; label?: TodoLabel } = {};
+  filters: { priority?: TodoPriority; label?: TodoLabel; completed?: boolean } = {};
   loading = false;
   persons: Person[] = [];
+  searchTerm = '';
 
   readonly priorities = TODO_PRIORITIES;
   readonly labels = TODO_LABELS;
@@ -109,7 +110,8 @@ export class TodoListComponent implements OnInit {
         page: this.pageIndex + 1,
         limit: this.pageSize,
         priority: this.filters.priority,
-        label: this.filters.label
+        label: this.filters.label,
+        completed: this.filters.completed
       })
       .subscribe((result) => {
         this.total = result.total;

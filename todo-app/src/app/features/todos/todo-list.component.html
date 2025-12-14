@@ -1,60 +1,74 @@
-<div class="page-header">
-  <div>
-    <p class="eyebrow">{{ 'tasks.eyebrow' | transloco }}</p>
-    <h1>{{ 'tasks.title' | transloco }}</h1>
-    <p class="muted">{{ 'tasks.subtitle' | transloco }}</p>
-  </div>
-  <div class="flex gap-3">
-    <button mat-stroked-button color="primary" (click)="loadTodos()" [disabled]="loading">
-      <mat-icon>refresh</mat-icon>
-      {{ 'common.refresh' | transloco }}
-    </button>
-    <button mat-flat-button color="primary" (click)="openDialog()">
+<div class="board">
+  <aside class="sidebar">
+    <button mat-stroked-button color="primary" class="add-btn" (click)="openDialog()">
       <mat-icon>add</mat-icon>
       {{ 'common.add' | transloco }}
     </button>
-    <button mat-stroked-button color="primary" (click)="exportExcel()" [disabled]="loading || !source.length">
-      <mat-icon>table_view</mat-icon>
-      {{ 'tasks.exportExcel' | transloco }}
-    </button>
-    <button mat-stroked-button color="primary" (click)="exportPdf()" [disabled]="loading || !source.length">
-      <mat-icon>picture_as_pdf</mat-icon>
-      {{ 'tasks.exportPdf' | transloco }}
-    </button>
-  </div>
-</div>
 
-<mat-card class="shadow-sm">
-  <div class="p-4 flex flex-col gap-4">
-    <div class="grid md:grid-cols-3 gap-3">
-      <mat-form-field appearance="outline" class="w-full">
-        <mat-label>{{ 'tasks.priority' | transloco }}</mat-label>
-        <mat-select [(ngModel)]="filters.priority" (selectionChange)="applyFilters()">
-          <mat-option [value]="undefined">{{ 'tasks.filters.all' | transloco }}</mat-option>
-          <mat-option *ngFor="let priority of priorities" [value]="priority">{{ priority }}</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <nav class="nav">
+      <h4>{{ 'tasks.eyebrow' | transloco }}</h4>
+      <button class="nav-item active" (click)="resetFilters()">
+        <mat-icon>list_alt</mat-icon>
+        {{ 'tasks.filters.all' | transloco }}
+      </button>
+      <button class="nav-item" (click)="filters.completed = undefined; applyFilters()">
+        <mat-icon>sync_alt</mat-icon>
+        {{ 'common.reset' | transloco }}
+      </button>
+      <button class="nav-item" (click)="toggleCompleted(false)">
+        <mat-icon>schedule</mat-icon>
+        {{ 'tasks.filters.pending' | transloco }}
+      </button>
+      <button class="nav-item" (click)="toggleCompleted(true)">
+        <mat-icon>check_circle</mat-icon>
+        {{ 'tasks.filters.completed' | transloco }}
+      </button>
+    </nav>
 
-      <mat-form-field appearance="outline" class="w-full">
-        <mat-label>{{ 'tasks.label' | transloco }}</mat-label>
-        <mat-select [(ngModel)]="filters.label" (selectionChange)="applyFilters()">
-          <mat-option [value]="undefined">{{ 'tasks.filters.all' | transloco }}</mat-option>
-          <mat-option *ngFor="let label of labels" [value]="label">{{ label }}</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div class="labels">
+      <h4>Labels</h4>
+      <button class="label-chip" *ngFor="let label of labels" (click)="filters.label = label; applyFilters()">
+        <span class="dot" [ngClass]="label | lowercase"></span>
+        {{ label }}
+      </button>
+    </div>
+  </aside>
 
-      <div class="flex items-end gap-2 filter-actions">
-        <button mat-stroked-button color="primary" (click)="applyFilters()" [disabled]="loading">
-          <mat-icon>filter_list</mat-icon>
-          {{ 'common.filter' | transloco }}
+  <section class="board-content">
+    <header class="board-toolbar">
+      <div class="search">
+        <mat-icon>search</mat-icon>
+        <input type="text" placeholder="{{ 'common.search' | transloco }}" [(ngModel)]="searchTerm" (keyup.enter)="applyFilters()" />
+      </div>
+      <div class="filters">
+        <mat-form-field appearance="outline" class="w-44 dense">
+          <mat-select [(ngModel)]="filters.priority" (selectionChange)="applyFilters()" [placeholder]="'tasks.priority' | transloco">
+            <mat-option [value]="undefined">{{ 'tasks.filters.all' | transloco }}</mat-option>
+            <mat-option *ngFor="let priority of priorities" [value]="priority">{{ priority }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-44 dense">
+          <mat-select [(ngModel)]="filters.label" (selectionChange)="applyFilters()" [placeholder]="'tasks.label' | transloco">
+            <mat-option [value]="undefined">{{ 'tasks.filters.all' | transloco }}</mat-option>
+            <mat-option *ngFor="let label of labels" [value]="label">{{ label }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-stroked-button color="primary" (click)="loadTodos()" [disabled]="loading">
+          <mat-icon>refresh</mat-icon>
+          {{ 'common.refresh' | transloco }}
         </button>
-        <button mat-button color="primary" (click)="resetFilters()" [disabled]="loading">
-          {{ 'common.reset' | transloco }}
+        <button mat-stroked-button color="primary" (click)="exportExcel()" [disabled]="loading || !source.length">
+          <mat-icon>table_view</mat-icon>
+          {{ 'tasks.exportExcel' | transloco }}
+        </button>
+        <button mat-stroked-button color="primary" (click)="exportPdf()" [disabled]="loading || !source.length">
+          <mat-icon>picture_as_pdf</mat-icon>
+          {{ 'tasks.exportPdf' | transloco }}
         </button>
       </div>
-    </div>
+    </header>
 
-    <div class="relative">
+    <div class="table-wrapper">
       <div class="absolute inset-0 flex items-center justify-center" *ngIf="loading">
         <mat-spinner diameter="48"></mat-spinner>
       </div>
@@ -75,5 +89,5 @@
       [pageSizeOptions]="[5, 10, 20]"
       (page)="onPageChange($event)"
     ></mat-paginator>
-  </div>
-</mat-card>
+  </section>
+</div>
