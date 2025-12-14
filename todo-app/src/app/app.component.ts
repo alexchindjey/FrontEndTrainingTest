@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -33,13 +33,31 @@ export class AppComponent {
     { code: 'en', label: 'English' }
   ];
   activeLang = 'fr';
+  isDark = false;
 
-  constructor(private readonly translocoService: TranslocoService) {
+  constructor(private readonly translocoService: TranslocoService, private readonly renderer: Renderer2) {
     this.activeLang = this.translocoService.getActiveLang() ?? 'fr';
+    this.isDark = localStorage.getItem('theme') === 'dark';
+    this.applyTheme();
   }
 
   changeLang(lang: string): void {
     this.activeLang = lang;
     this.translocoService.setActiveLang(lang);
+  }
+
+  toggleTheme(): void {
+    this.isDark = !this.isDark;
+    localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
+    this.applyTheme();
+  }
+
+  private applyTheme(): void {
+    const root = document.documentElement;
+    if (this.isDark) {
+      this.renderer.addClass(root, 'theme-dark');
+    } else {
+      this.renderer.removeClass(root, 'theme-dark');
+    }
   }
 }

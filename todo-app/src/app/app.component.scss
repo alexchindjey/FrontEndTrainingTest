@@ -9,3 +9,24 @@ a[mat-stroked-button] {
 .active-link {
   background: rgba(255, 255, 255, 0.08);
 }
+
+.app-toolbar {
+  background: var(--surface);
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+}
+
+.app-title {
+  color: var(--text);
+}
+
+.theme-toggle {
+  margin-left: 0.75rem;
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.toolbar-actions {
+  display: inline-flex;
+  align-items: center;
+}

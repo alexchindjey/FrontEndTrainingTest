@@ -27,6 +27,32 @@ $todo-app-theme: mat.define-theme((
 // that you are using.
 :root {
   @include mat.all-component-themes($todo-app-theme);
+
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --panel: #ffffff;
+  --text: #0f172a;
+  --muted: #475569;
+  --border: #e2e8f0;
+  --pill: #eef2ff;
+  --accent: #2563eb;
+  --accent-strong: linear-gradient(135deg, #60a5fa, #2563eb);
+  --shadow: 0 14px 40px rgba(15, 23, 42, 0.15);
+}
+
+:root.theme-dark {
+  --bg: #0b1222;
+  --surface: #0f172a;
+  --surface-2: #111827;
+  --panel: #0f172a;
+  --text: #e2e8f0;
+  --muted: #cbd5e1;
+  --border: #1f2937;
+  --pill: rgba(37, 99, 235, 0.15);
+  --accent: #3b82f6;
+  --accent-strong: linear-gradient(135deg, #60a5fa, #2563eb);
+  --shadow: 0 16px 50px rgba(15, 23, 42, 0.35);
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.
@@ -45,8 +71,9 @@ body {
 body {
   margin: 0;
   font-family: 'Roboto', 'Inter', 'Helvetica Neue', sans-serif;
-  background-color: #f8fafc;
-  color: #0f172a;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .icon-16 {

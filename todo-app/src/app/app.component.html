@@ -1,5 +1,5 @@
-<mat-toolbar color="primary" class="shadow-sm">
-  <span class="text-lg font-semibold">{{ 'app.title' | transloco }}</span>
+<mat-toolbar color="primary" class="shadow-sm app-toolbar">
+  <span class="text-lg font-semibold app-title">{{ 'app.title' | transloco }}</span>
   <span class="flex-1"></span>
   <a mat-button routerLink="/todos" routerLinkActive="active-link">
     <mat-icon>checklist</mat-icon>
@@ -9,14 +9,20 @@
     <mat-icon>group</mat-icon>
     {{ 'app.nav.persons' | transloco }}
   </a>
-  <mat-select
-    class="ml-4 w-36"
-    [value]="activeLang"
-    (selectionChange)="changeLang($event.value)"
-    aria-label="Langue"
-  >
-    <mat-option *ngFor="let lang of langs" [value]="lang.code">{{ lang.label }}</mat-option>
-  </mat-select>
+  <div class="toolbar-actions">
+    <mat-select
+      class="ml-4 w-36"
+      [value]="activeLang"
+      (selectionChange)="changeLang($event.value)"
+      aria-label="Langue"
+    >
+      <mat-option *ngFor="let lang of langs" [value]="lang.code">{{ lang.label }}</mat-option>
+    </mat-select>
+    <button mat-stroked-button class="theme-toggle" (click)="toggleTheme()" type="button">
+      <mat-icon>{{ isDark ? 'light_mode' : 'dark_mode' }}</mat-icon>
+      {{ isDark ? 'Light' : 'Dark' }}
+    </button>
+  </div>
 </mat-toolbar>
 
 <main class="min-h-screen bg-slate-50">
