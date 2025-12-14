@@ -90,6 +90,14 @@ h1 {
   min-width: 120px;
 }
 
+.result-badge {
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #1e293b;
+  font-weight: 600;
+}
+
 ::ng-deep ng2-smart-table table {
   border: var(--table-border);
   border-collapse: collapse;

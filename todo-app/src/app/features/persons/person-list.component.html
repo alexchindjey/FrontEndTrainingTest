@@ -34,6 +34,8 @@
       </button>
     </mat-form-field>
 
+    <span class="result-badge" aria-live="polite">Résultats: {{ total }}</span>
+
     <button mat-stroked-button color="primary" class="filter-btn" (click)="applySearch()" [disabled]="loading">
       {{ 'common.filter' | transloco }}
     </button>

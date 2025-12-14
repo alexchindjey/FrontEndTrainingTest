@@ -39,6 +39,7 @@
       <div class="search">
         <input type="text" placeholder="{{ 'common.search' | transloco }}" [(ngModel)]="searchTerm" (keyup.enter)="applyFilters()" />
       </div>
+      <span class="result-badge" aria-live="polite">Résultats: {{ total }}</span>
       <div class="filters">
         <mat-form-field appearance="outline" class="w-44 dense">
           <mat-select [(ngModel)]="filters.priority" (selectionChange)="applyFilters()" [placeholder]="'tasks.priority' | transloco">
