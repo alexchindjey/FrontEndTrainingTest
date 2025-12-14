@@ -91,10 +91,16 @@
             {{ scheduleText(todo) }}
           </div>
           <div class="actions-cell">
-            <button mat-icon-button (click)="toggleDone(todo)" [attr.aria-label]="todo.completed ? 'undo' : 'done'">
+            <button
+              mat-icon-button
+              (click)="toggleDone(todo)"
+              [disabled]="todo.completed"
+              aria-label="mark-done"
+              [matTooltip]="todo.completed ? ('tasks.completedLock' | transloco) : ('tasks.markDone' | transloco)"
+            >
               <mat-icon [class.done-icon]="todo.completed">{{ todo.completed ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
             </button>
-            <button mat-icon-button (click)="openDialog(todo)" aria-label="edit">
+            <button mat-icon-button (click)="openDialog(todo)" [disabled]="todo.completed" aria-label="edit">
               <mat-icon>edit</mat-icon>
             </button>
             <button mat-icon-button (click)="onCustom({ action: 'delete', data: todo })" aria-label="delete">

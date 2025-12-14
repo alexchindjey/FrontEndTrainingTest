@@ -167,9 +167,9 @@ export class TodoListComponent implements OnInit {
   }
 
   toggleDone(todo: Todo): void {
-    const completed = !todo.completed;
-    const endDate = completed ? new Date().toISOString().slice(0, 10) : null;
-    const payload: Todo = { ...todo, completed, endDate };
+    if (todo.completed) return;
+    const endDate = new Date().toISOString().slice(0, 10);
+    const payload: Todo = { ...todo, completed: true, endDate };
     this.todoService.update(payload).subscribe(() => this.loadTodos());
   }
 

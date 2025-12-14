@@ -32,6 +32,8 @@
       "completed": "Done"
     },
     "noData": "No tasks",
+    "markDone": "Mark as done",
+    "completedLock": "Completed tasks are locked",
     "confirmDelete": "Delete \"{{title}}\" ?",
     "exportExcel": "Export Excel",
     "exportPdf": "Export PDF"
