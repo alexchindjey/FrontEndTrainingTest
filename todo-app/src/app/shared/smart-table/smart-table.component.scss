@@ -79,7 +79,12 @@ th {
 }
 
 .smart-table-wrapper tr:hover td {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.smart-table-wrapper tr:hover td * {
+  color: var(--text) !important;
 }
 
 .highlight-mark {
