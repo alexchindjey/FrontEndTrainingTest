@@ -1,47 +1,57 @@
-# Angular TODO List
+# Angular TODO List – Test Technique
 
-Projet Angular 18 standalone avec Angular Material, TailwindCSS et un mock API `json-server`.
+Projet Angular 18 standalone avec Angular Material, TailwindCSS et mock API `json-server`.
 
-## Démarrer en local
+## 📦 Installation et lancement
 
 ```bash
-# depuis le dossier todo-app
+# à la racine du projet
+cd todo-app
 npm install
 npm run mock:server   # API mock sur http://localhost:3000
 npm start             # front sur http://localhost:4200
 ```
 
-## Périmètre mock
+## ✅ Tests
 
-- Ressources exposées : `/todos` et `/persons`
-- Pagination/filtre supportés côté mock : `_page`, `_limit`, `priority`, `labels_like`, `name_like`
-- L’API renvoie `X-Total-Count` pour faciliter la pagination.
+- Voir chaque spec pendant l’exécution : `npm test -- --watch=false` (reporter “spec” activé).
+- Couverture logique ajoutée :
+  - `todo-list.component.spec.ts` : filtres multi-label + recherche titre/personne, pagination client, verrouillage/fin automatique des tâches terminées.
+  - `person-list.component.spec.ts` : filtres nom/email combinés, pagination client.
+  - `app.component.spec.ts` : configuration Transloco/router.
 
-## Stack
+## 🎯 Fonctionnalités clés (conformément au PDF)
 
-- Angular 18 standalone
-- Angular Material (thème azur/bleu)
-- TailwindCSS utility-first
+- Tâches : création/édition/suppression via modale, affectation à une personne, priorité, labels multiples, description.
+- Marquer terminé verrouille la tâche et renseigne la date de fin automatiquement; actions désactivées si terminé.
+- Filtrage/pagination : priorités, multi-label (ET logique), recherche mixte titre+personne, pagination client cohérente.
+- Personnes : création/édition/suppression, unicité nom gérée côté dialog, recherche nom/email, pagination.
+- Export : Excel & PDF des tâches visibles.
+- i18n Transloco FR/EN (sélecteur de langue).
+- UI : tableau custom Material (ng2-smart-table incompatible Angular 18), avatars initiales (2 chars), surlignage des correspondances de recherche.
+
+## 🔗 Mock API (json-server)
+
+- Ressources : `/todos`, `/persons` (fichier `mock/db.json` enrichi ~20 tâches, personnes supplémentaires).
+- Paramètres supportés côté serveur : `_page`, `_limit`, `priority`, `labels_like`, `completed`, `title_like`, `name_like`, `email_like`.
+- En front, filtrage avancé et pagination sont gérés côté client après récupération complète quand nécessaire (labels multiples, recherche combinée).
+
+## 🛠️ Stack
+
+- Angular 18 (standalone) + Angular Material + TailwindCSS
 - json-server pour les données simulées
-- Tableau personnalisé Material (fallback car `ng2-smart-table` n’est plus compatible Angular 18)
-- Transloco pour l’i18n (FR/EN)
-- Export Excel/PDF avec `xlsx`, `file-saver`, `jspdf`, `jspdf-autotable`
-
-## Bonus
-
-- i18n live via Transloco (sélecteur FR/EN dans la toolbar)
-- Export des tâches visibles en Excel/PDF depuis la liste
+- Transloco pour l’i18n
+- Export : `xlsx`, `file-saver`, `jspdf`, `jspdf-autotable`
+- Tests : Karma/Jasmine avec reporter “spec”
 
 ## Scripts utiles
 
-- `npm start` : démarre le front en mode dev
-- `npm run mock:server` : démarre json-server sur `http://localhost:3000`
-- `npm run build` : build de prod (voir note sur esbuild si besoin)
+- `npm start` : front dev `http://localhost:4200`
+- `npm run mock:server` : API mock `http://localhost:3000`
+- `npm run build` : build de prod
+- `npm test -- --watch=false` : exécution des tests unitaires (affichage des specs)
 
-## Note build/esbuild
+## Notes
 
-Sur certaines machines, le build Angular peut échouer avec un deadlock esbuild. Le projet est basculé sur le builder webpack (`@angular-devkit/build-angular:browser`) pour éviter ce souci. En cas de problème persistant, réinstaller `node_modules` ou tester une version LTS différente de Node.
-
-## Note tableau
-
-Le composant `ng2-smart-table` d’origine n’est plus compatible avec Angular 18 (Ivy). Un composant de tableau personnalisé basé sur Angular Material a été ajouté avec le même usage (colonnes configurables, actions personnalisées) pour respecter l’affichage attendu.
+- Builder Angular : webpack (`@angular-devkit/build-angular:browser`) pour éviter les soucis esbuild.
+- ng2-smart-table : remplacé par un tableau Material custom (ng2-smart-table incompatible Angular 18/Ivy).
