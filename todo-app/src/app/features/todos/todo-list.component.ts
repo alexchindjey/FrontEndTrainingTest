@@ -97,10 +97,10 @@ export class TodoListComponent implements OnInit {
         search: this.searchTerm
       })
       .subscribe((result) => {
-        this.total = result.total;
         const data = labelFilter
           ? result.data.filter((todo) => (todo.labels || []).includes(labelFilter))
           : result.data;
+        this.total = labelFilter ? data.length : result.total;
         this.source = data;
         this.loading = false;
       });
