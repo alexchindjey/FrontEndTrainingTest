@@ -33,6 +33,7 @@
       "completed": "Done"
     },
     "noData": "No tasks",
+    "unassigned": "Unassigned",
     "markDone": "Mark as done",
     "completedLock": "Completed tasks are locked",
     "confirmDelete": "Delete \"{{title}}\" ?",

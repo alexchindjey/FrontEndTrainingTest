@@ -33,6 +33,7 @@
       "completed": "Terminé"
     },
     "noData": "Aucune tâche",
+    "unassigned": "Non assignée",
     "markDone": "Marquer terminée",
     "completedLock": "Les tâches terminées sont verrouillées",
     "confirmDelete": "Supprimer \"{{title}}\" ?",
