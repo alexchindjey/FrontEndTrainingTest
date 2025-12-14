@@ -166,6 +166,13 @@ export class TodoListComponent implements OnInit {
     return date ? `Schedule for ${date}` : '';
   }
 
+  toggleDone(todo: Todo): void {
+    const completed = !todo.completed;
+    const endDate = completed ? new Date().toISOString().slice(0, 10) : null;
+    const payload: Todo = { ...todo, completed, endDate };
+    this.todoService.update(payload).subscribe(() => this.loadTodos());
+  }
+
   toggleCompleted(value: boolean | undefined): void {
     this.filters.completed = value;
     this.applyFilters();

@@ -64,6 +64,7 @@
         <div class="list-row header">
           <span></span>
           <span>{{ 'tasks.columns.title' | transloco }}</span>
+          <span>{{ 'tasks.columns.person' | transloco }}</span>
           <span>{{ 'tasks.columns.labels' | transloco }}</span>
           <span>{{ 'tasks.columns.completed' | transloco }}</span>
           <span>{{ 'tasks.columns.endDate' | transloco }}</span>
@@ -72,13 +73,11 @@
         <div class="list-row" *ngFor="let todo of source">
           <mat-checkbox color="primary"></mat-checkbox>
           <div class="title-cell">
-            <div class="person-cell">
-              <div class="avatar">{{ avatarInitials(todo) }}</div>
-              <div>
-                <div class="title">{{ todo.title }}</div>
-                <div class="subtitle">{{ todo.person?.name }}</div>
-              </div>
-            </div>
+            <div class="title">{{ todo.title }}</div>
+          </div>
+          <div class="person-cell">
+            <div class="avatar">{{ avatarInitials(todo) }}</div>
+            <div class="subtitle strong">{{ todo.person?.name }}</div>
           </div>
           <div class="labels-cell">
             <span class="label-dot" *ngFor="let label of todo.labels" [style.background]="labelColor(label)"></span>
@@ -92,6 +91,9 @@
             {{ scheduleText(todo) }}
           </div>
           <div class="actions-cell">
+            <button mat-icon-button (click)="toggleDone(todo)" [attr.aria-label]="todo.completed ? 'undo' : 'done'">
+              <mat-icon [class.done-icon]="todo.completed">{{ todo.completed ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+            </button>
             <button mat-icon-button (click)="openDialog(todo)" aria-label="edit">
               <mat-icon>edit</mat-icon>
             </button>
