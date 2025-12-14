@@ -54,7 +54,7 @@ export class SmartTableComponent implements OnChanges {
 
   renderCell(col: SmartTableColumn, value: any, row: any): any {
     if (col.type === 'avatar') {
-      const name = col.field ? row[col.field] : (value ?? '');
+      const name = this.extractName(row, col, value);
       return this.initials(name);
     }
     return col.valuePrepareFunction ? col.valuePrepareFunction(value, row) : value;
@@ -62,6 +62,18 @@ export class SmartTableComponent implements OnChanges {
 
   onAction(action: string, row: any): void {
     this.custom.emit({ action, data: row });
+  }
+
+  private extractName(row: any, col: SmartTableColumn, value: any): string {
+    if (col.field?.includes('.')) {
+      return col.field.split('.').reduce((acc: any, part) => acc?.[part], row) ?? '';
+    }
+    const candidate = col.field ? row?.[col.field] : value;
+    if (typeof candidate === 'string') return candidate;
+    if (candidate && typeof candidate === 'object') {
+      if ('name' in candidate && typeof candidate.name === 'string') return candidate.name;
+    }
+    return '';
   }
 
   private initials(name: string): string {

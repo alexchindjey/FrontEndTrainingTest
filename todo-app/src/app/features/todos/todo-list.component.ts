@@ -64,7 +64,7 @@ export class TodoListComponent implements OnInit {
         title: 'tasks.columns.person',
         valuePrepareFunction: (_: any, row: Todo) => row.person?.name ?? '',
         type: 'avatar' as const,
-        field: 'person.name'
+        field: 'person'
       },
       priority: { title: 'tasks.columns.priority' },
       startDate: { title: 'tasks.columns.startDate' },
