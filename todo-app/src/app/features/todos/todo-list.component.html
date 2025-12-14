@@ -1,0 +1,71 @@
+<div class="page-header">
+  <div>
+    <p class="eyebrow">Tâches</p>
+    <h1>Liste des tâches</h1>
+    <p class="muted">Tableau en lecture seule, actions via modale et filtres.</p>
+  </div>
+  <div class="flex gap-3">
+    <button mat-stroked-button color="primary" (click)="loadTodos()" [disabled]="loading">
+      <mat-icon>refresh</mat-icon>
+      Rafraîchir
+    </button>
+    <button mat-flat-button color="primary" (click)="openDialog()">
+      <mat-icon>add</mat-icon>
+      Ajouter
+    </button>
+  </div>
+</div>
+
+<mat-card class="shadow-sm">
+  <div class="p-4 flex flex-col gap-4">
+    <div class="grid md:grid-cols-3 gap-3">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Priorité</mat-label>
+        <mat-select [(ngModel)]="filters.priority" (selectionChange)="applyFilters()">
+          <mat-option [value]="undefined">Toutes</mat-option>
+          <mat-option *ngFor="let priority of priorities" [value]="priority">{{ priority }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Label</mat-label>
+        <mat-select [(ngModel)]="filters.label" (selectionChange)="applyFilters()">
+          <mat-option [value]="undefined">Tous</mat-option>
+          <mat-option *ngFor="let label of labels" [value]="label">{{ label }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="flex items-end gap-2">
+        <button mat-stroked-button color="primary" (click)="applyFilters()" [disabled]="loading">
+          <mat-icon>filter_list</mat-icon>
+          Filtrer
+        </button>
+        <button mat-button color="primary" (click)="resetFilters()" [disabled]="loading">
+          Réinitialiser
+        </button>
+      </div>
+    </div>
+
+    <div class="relative">
+      <div class="absolute inset-0 flex items-center justify-center" *ngIf="loading">
+        <mat-spinner diameter="48"></mat-spinner>
+      </div>
+      <div [class.opacity-50]="loading">
+        <ng2-smart-table
+          [settings]="settings"
+          [source]="source"
+          (custom)="onCustom($event)"
+          class="smart-table"
+        ></ng2-smart-table>
+      </div>
+    </div>
+
+    <mat-paginator
+      [length]="total"
+      [pageSize]="pageSize"
+      [pageIndex]="pageIndex"
+      [pageSizeOptions]="[5, 10, 20]"
+      (page)="onPageChange($event)"
+    ></mat-paginator>
+  </div>
+</mat-card>

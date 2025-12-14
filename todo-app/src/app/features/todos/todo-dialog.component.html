@@ -1,0 +1,67 @@
+<h2 mat-dialog-title>{{ data.todo ? 'Modifier une tâche' : 'Ajouter une tâche' }}</h2>
+
+<form class="space-y-4 px-6 pb-6" [formGroup]="form" (ngSubmit)="save()">
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Titre</mat-label>
+    <input matInput formControlName="title" required />
+    <mat-error *ngIf="form.controls.title.hasError('required')">Titre requis</mat-error>
+    <mat-error *ngIf="form.controls.title.hasError('minTrimmedLength')">Minimum 3 caractères</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Personne</mat-label>
+    <input
+      type="text"
+      matInput
+      [matAutocomplete]="auto"
+      formControlName="person"
+      required
+    />
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPerson.bind(this)" (optionSelected)="form.controls.person.setValue($event.option.value)">
+      <mat-option *ngFor="let person of filteredPersons$ | async" [value]="person">
+        {{ person.name }}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="form.controls.person.hasError('required')">Personne requise</mat-error>
+  </mat-form-field>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Date de début</mat-label>
+      <input matInput type="date" formControlName="startDate" required />
+      <mat-error *ngIf="form.controls.startDate.hasError('required')">Date requise</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Date de fin</mat-label>
+      <input matInput type="date" formControlName="endDate" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Priorité</mat-label>
+      <mat-select formControlName="priority" required>
+        <mat-option *ngFor="let priority of priorities" [value]="priority">{{ priority }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls.priority.hasError('required')">Priorité requise</mat-error>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Labels</mat-label>
+    <mat-select formControlName="labels" multiple>
+      <mat-option *ngFor="let label of labels" [value]="label">{{ label }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-checkbox formControlName="completed">Terminée (date de fin figée)</mat-checkbox>
+
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description" rows="3"></textarea>
+  </mat-form-field>
+
+  <div class="flex justify-end gap-3 pt-2">
+    <button mat-stroked-button type="button" (click)="cancel()">Annuler</button>
+    <button mat-flat-button color="primary" type="submit">Sauvegarder</button>
+  </div>
+</form>

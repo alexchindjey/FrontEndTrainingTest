@@ -1,0 +1,46 @@
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  color: #64748b;
+  margin: 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.muted {
+  margin: 0.25rem 0 0;
+  color: #475569;
+}
+
+.smart-table {
+  --table-border: 1px solid #e2e8f0;
+}
+
+::ng-deep ng2-smart-table table {
+  border: var(--table-border);
+  border-collapse: collapse;
+}
+
+::ng-deep ng2-smart-table thead tr {
+  background: #f8fafc;
+}
+
+::ng-deep ng2-smart-table th,
+::ng-deep ng2-smart-table td {
+  padding: 0.75rem;
+  border: var(--table-border);
+}

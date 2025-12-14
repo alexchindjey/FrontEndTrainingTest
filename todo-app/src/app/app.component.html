@@ -1,66 +1,22 @@
 <mat-toolbar color="primary" class="shadow-sm">
-  <div class="flex items-center gap-3">
-    <span class="text-lg font-semibold">{{ title }}</span>
-    <span class="hidden sm:inline-flex text-xs uppercase tracking-wide bg-white/10 px-2 py-0.5 rounded-full">
-      Setup prêt
-    </span>
-  </div>
+  <span class="text-lg font-semibold">{{ title }}</span>
   <span class="flex-1"></span>
+  <a mat-button routerLink="/todos" routerLinkActive="active-link">
+    <mat-icon>checklist</mat-icon>
+    Tâches
+  </a>
+  <a mat-button routerLink="/persons" routerLinkActive="active-link">
+    <mat-icon>group</mat-icon>
+    Personnes
+  </a>
+  <mat-divider vertical></mat-divider>
   <a mat-stroked-button color="accent" href="./README.md" target="_blank" rel="noreferrer">
     Consignes
   </a>
 </mat-toolbar>
 
 <main class="min-h-screen bg-slate-50">
-  <div class="max-w-6xl mx-auto px-4 py-10 space-y-6">
-    <section class="grid gap-4 md:grid-cols-3">
-      <mat-card class="shadow-sm">
-        <mat-card-header>
-          <mat-card-title>Stack</mat-card-title>
-          <mat-card-subtitle>Angular 18 + Material + Tailwind</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p class="text-sm text-slate-700">
-            Base initiale prête pour les modules Tâches et Personnes avec un thème Material clair.
-          </p>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="shadow-sm">
-        <mat-card-header>
-          <mat-card-title>UI Toolkit</mat-card-title>
-          <mat-card-subtitle>Material theming activé</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p class="text-sm text-slate-700">
-            Palette azur/bleu et typographie Roboto pour aligner les composants à venir.
-          </p>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="shadow-sm">
-        <mat-card-header>
-          <mat-card-title>Productivité</mat-card-title>
-          <mat-card-subtitle>Tailwind utility-first</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p class="text-sm text-slate-700">
-            Les utilitaires Tailwind facilitent la mise en page des listes, modales et filtres.
-          </p>
-        </mat-card-content>
-      </mat-card>
-    </section>
-
-    <mat-card class="shadow-sm">
-      <mat-card-header>
-        <mat-card-title>Prochaines étapes</mat-card-title>
-        <mat-card-subtitle>Roadmap du test</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <ul class="list-disc pl-5 space-y-2 text-sm text-slate-700">
-          <li *ngFor="let step of nextSteps">{{ step }}</li>
-        </ul>
-      </mat-card-content>
-    </mat-card>
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <router-outlet></router-outlet>
   </div>
 </main>

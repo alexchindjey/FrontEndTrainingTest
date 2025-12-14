@@ -1,0 +1,50 @@
+<div class="page-header">
+  <div>
+    <p class="eyebrow">Personnes</p>
+    <h1>Gestion des personnes</h1>
+    <p class="muted">Tableau en lecture seule, actions via modale.</p>
+  </div>
+  <div class="flex gap-3">
+    <button mat-stroked-button color="primary" (click)="loadPersons()" [disabled]="loading">
+      <mat-icon>refresh</mat-icon>
+      Rafraîchir
+    </button>
+    <button mat-flat-button color="primary" (click)="openDialog()">
+      <mat-icon>add</mat-icon>
+      Ajouter
+    </button>
+  </div>
+</div>
+
+<mat-card class="shadow-sm">
+  <div class="p-4 flex flex-col gap-4">
+    <div class="flex flex-col md:flex-row gap-3 items-start md:items-end">
+      <mat-form-field appearance="outline" class="w-full md:w-80">
+        <mat-label>Recherche nom</mat-label>
+        <input matInput [(ngModel)]="search" (keyup.enter)="applySearch()" placeholder="ex: Alice" />
+        <button mat-icon-button matSuffix *ngIf="search" (click)="search=''; applySearch()" aria-label="Effacer">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <button mat-stroked-button color="primary" (click)="applySearch()" [disabled]="loading">
+        <mat-icon>search</mat-icon>
+        Filtrer
+      </button>
+    </div>
+
+    <ng2-smart-table
+      [settings]="settings"
+      [source]="source"
+      (custom)="onCustom($event)"
+      class="smart-table"
+    ></ng2-smart-table>
+
+    <mat-paginator
+      [length]="total"
+      [pageSize]="pageSize"
+      [pageIndex]="pageIndex"
+      [pageSizeOptions]="[5, 10, 20]"
+      (page)="onPageChange($event)"
+    ></mat-paginator>
+  </div>
+</mat-card>
