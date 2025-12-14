@@ -51,13 +51,11 @@ L’objectif principal de ce projet est de démontrer :
 
 ## 🛠️ Stack technique
 
-- Angular
+- Angular (standalone)
 - TypeScript
-- Angular Material
-- Tailwind CSS
-- ng2-smart-table
-- json-server
-- Docker (environnement de développement)
+- Angular Material + Tailwind CSS
+- json-server (mock API)
+- Tableau custom Material (remplace ng2-smart-table, incompatible Angular 18)
 
 ---
 
