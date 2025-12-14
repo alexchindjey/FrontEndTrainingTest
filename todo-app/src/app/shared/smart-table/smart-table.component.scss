@@ -1,8 +1,9 @@
 .smart-table-wrapper {
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
   overflow: hidden;
-  background: #ffffff;
+  background: #0b1222;
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.35);
 }
 
 .smart-table {
@@ -11,12 +12,13 @@
 
 th,
 td {
-  padding: 0.75rem;
+  padding: 0.8rem;
 }
 
 th {
-  background: #f8fafc;
-  font-weight: 600;
+  background: rgba(255, 255, 255, 0.04);
+  font-weight: 700;
+  color: #cbd5e1;
 }
 
 .icon {
@@ -47,7 +49,7 @@ th {
 
 .avatar-label {
   font-weight: 600;
-  color: #0f172a;
+  color: #e2e8f0;
 }
 
 .mat-mdc-header-cell,
@@ -58,7 +60,17 @@ th {
 .no-data {
   padding: 1rem;
   text-align: center;
-  color: #64748b;
+  color: #cbd5e1;
+}
+
+.smart-table-wrapper td {
+  color: #e2e8f0;
+  font-weight: 500;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.smart-table-wrapper tr:hover td {
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .highlight-mark {
