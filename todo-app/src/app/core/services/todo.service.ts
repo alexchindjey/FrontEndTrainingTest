@@ -25,15 +25,15 @@ export class TodoService {
 
   list(params: TodoQueryParams = {}): Observable<PaginatedResult<Todo>> {
     let httpParams = new HttpParams().set('_expand', 'person');
+    const labelsFilter = [
+      ...(params.labels ?? []),
+      ...(params.label ? [params.label] : [])
+    ].filter(Boolean);
+
     if (params.page) httpParams = httpParams.set('_page', params.page);
     if (params.limit) httpParams = httpParams.set('_limit', params.limit);
     if (params.priority) httpParams = httpParams.set('priority', params.priority);
-    if (params.label) httpParams = httpParams.set('labels_like', params.label);
-    if (params.labels && params.labels.length > 0) {
-      params.labels.forEach((l) => {
-        httpParams = httpParams.append('labels_like', l);
-      });
-    }
+    if (labelsFilter.length) httpParams = httpParams.set('labels_like', labelsFilter.join('|'));
     if (params.completed !== undefined) httpParams = httpParams.set('completed', params.completed);
     if (params.search) httpParams = httpParams.set('title_like', params.search);
 
