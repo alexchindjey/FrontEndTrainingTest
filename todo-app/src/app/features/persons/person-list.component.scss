@@ -79,6 +79,24 @@ h1 {
   flex: 1 1 260px;
 }
 
+.filters-line .mat-mdc-form-field {
+  --mdc-outlined-text-field-container-shape: 12px;
+  --mdc-outlined-text-field-outline-color: var(--border);
+  --mdc-outlined-text-field-focus-outline-color: var(--accent);
+}
+
+.filters-line .mat-mdc-text-field-wrapper {
+  background: var(--surface-2);
+}
+
+.filters-line .mat-mdc-form-field-input-control {
+  color: var(--text);
+}
+
+.filters-line .mdc-text-field__input {
+  color: var(--text);
+}
+
 .dense-field .mat-mdc-form-field-subscript-wrapper {
   display: none;
 }

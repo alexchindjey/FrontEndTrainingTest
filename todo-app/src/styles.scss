@@ -42,17 +42,17 @@ $todo-app-theme: mat.define-theme((
 }
 
 :root.theme-dark {
-  --bg: #0b1222;
-  --surface: #0f172a;
-  --surface-2: #111827;
-  --panel: #0f172a;
-  --text: #e2e8f0;
+  --bg: #050915;
+  --surface: #0d1528;
+  --surface-2: #111b2f;
+  --panel: #0d1528;
+  --text: #f8fafc;
   --muted: #cbd5e1;
-  --border: #1f2937;
-  --pill: rgba(37, 99, 235, 0.15);
+  --border: #1f2b40;
+  --pill: rgba(59, 130, 246, 0.18);
   --accent: #3b82f6;
   --accent-strong: linear-gradient(135deg, #60a5fa, #2563eb);
-  --shadow: 0 16px 50px rgba(15, 23, 42, 0.35);
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.
