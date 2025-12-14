@@ -1,0 +1,51 @@
+<div class="smart-table-wrapper">
+  <table mat-table [dataSource]="source" class="smart-table">
+    <ng-container *ngIf="(settings?.actions?.position ?? 'right') === 'left' && (settings?.actions?.custom?.length ?? 0) > 0" matColumnDef="__actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <ng-container *ngFor="let action of settings?.actions?.custom">
+          <button
+            mat-icon-button
+            [color]="action.color || undefined"
+            [matTooltip]="action.name"
+            type="button"
+            (click)="onAction(action.name, row)"
+          >
+            <mat-icon>{{ action.icon || 'edit' }}</mat-icon>
+          </button>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <ng-container *ngFor="let column of columnsEntries" [matColumnDef]="column.key">
+      <th mat-header-cell *matHeaderCellDef>{{ column.config.title || column.key }}</th>
+      <td mat-cell *matCellDef="let row">
+        {{ renderCell(column.config, row[column.key], row) }}
+      </td>
+    </ng-container>
+
+    <ng-container *ngIf="(settings?.actions?.position ?? 'right') !== 'left' && (settings?.actions?.custom?.length ?? 0) > 0" matColumnDef="__actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <ng-container *ngFor="let action of settings?.actions?.custom">
+          <button
+            mat-icon-button
+            [color]="action.color || undefined"
+            [matTooltip]="action.name"
+            type="button"
+            (click)="onAction(action.name, row)"
+          >
+            <mat-icon>{{ action.icon || 'edit' }}</mat-icon>
+          </button>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <div class="no-data" *ngIf="!source?.length">
+    {{ settings.noDataMessage || 'Aucune donnée' }}
+  </div>
+</div>

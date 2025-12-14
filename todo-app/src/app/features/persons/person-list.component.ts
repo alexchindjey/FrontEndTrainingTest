@@ -8,11 +8,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
-import { LocalDataSource, Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { PersonService } from '../../core/services/person.service';
 import { Person } from '../../core/models/person.model';
 import { PersonDialogComponent } from './person-dialog.component';
+import { SmartTableModule } from '../../shared/smart-table/smart-table.module';
 
 @Component({
   selector: 'app-person-list',
@@ -20,7 +20,7 @@ import { PersonDialogComponent } from './person-dialog.component';
   imports: [
     CommonModule,
     FormsModule,
-    Ng2SmartTableModule,
+    SmartTableModule,
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
@@ -33,31 +33,28 @@ import { PersonDialogComponent } from './person-dialog.component';
   styleUrl: './person-list.component.scss'
 })
 export class PersonListComponent implements OnInit {
-  source = new LocalDataSource();
+  source: Person[] = [];
   settings = {
     actions: {
-      add: false,
-      edit: false,
-      delete: false,
       custom: [
-        { name: 'edit', title: '<i class=\"material-icons text-primary\">edit</i>' },
-        { name: 'delete', title: '<i class=\"material-icons text-warn\">delete</i>' }
+        { name: 'edit', icon: 'edit', color: 'primary' },
+        { name: 'delete', icon: 'delete', color: 'warn' }
       ],
-      position: 'right'
+      position: 'right' as const
     },
     columns: {
       name: { title: 'Nom' },
       email: { title: 'Email' },
       phone: { title: 'Téléphone' }
     },
-    noDataMessage: 'Aucune personne',
-    pager: { display: false }
+    noDataMessage: 'Aucune personne'
   };
 
   pageIndex = 0;
   pageSize = 5;
   total = 0;
   search = '';
+  searchEmail = '';
   loading = false;
   personsCache: Person[] = [];
 
@@ -70,11 +67,11 @@ export class PersonListComponent implements OnInit {
   loadPersons(): void {
     this.loading = true;
     this.personService
-      .list({ page: this.pageIndex + 1, limit: this.pageSize, search: this.search })
+      .list({ page: this.pageIndex + 1, limit: this.pageSize, search: this.search, email: this.searchEmail })
       .subscribe((result) => {
         this.personsCache = result.data;
         this.total = result.total;
-        this.source.load(result.data);
+        this.source = result.data;
         this.loading = false;
       });
   }

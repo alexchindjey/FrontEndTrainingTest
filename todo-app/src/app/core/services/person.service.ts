@@ -10,6 +10,7 @@ export interface PersonQueryParams {
   page?: number;
   limit?: number;
   search?: string;
+  email?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -22,6 +23,7 @@ export class PersonService {
     if (params.page) httpParams = httpParams.set('_page', params.page);
     if (params.limit) httpParams = httpParams.set('_limit', params.limit);
     if (params.search) httpParams = httpParams.set('name_like', params.search);
+    if (params.email) httpParams = httpParams.set('email_like', params.email);
 
     return this.http
       .get<Person[]>(this.baseUrl, { params: httpParams, observe: 'response' })

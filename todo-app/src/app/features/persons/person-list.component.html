@@ -18,7 +18,7 @@
 
 <mat-card class="shadow-sm">
   <div class="p-4 flex flex-col gap-4">
-    <div class="flex flex-col md:flex-row gap-3 items-start md:items-end">
+    <div class="grid md:grid-cols-3 gap-3 items-start">
       <mat-form-field appearance="outline" class="w-full md:w-80">
         <mat-label>Recherche nom</mat-label>
         <input matInput [(ngModel)]="search" (keyup.enter)="applySearch()" placeholder="ex: Alice" />
@@ -26,10 +26,22 @@
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
-      <button mat-stroked-button color="primary" (click)="applySearch()" [disabled]="loading">
-        <mat-icon>search</mat-icon>
-        Filtrer
-      </button>
+
+      <mat-form-field appearance="outline" class="w-full md:w-80">
+        <mat-label>Recherche email</mat-label>
+        <input matInput [(ngModel)]="searchEmail" (keyup.enter)="applySearch()" placeholder="ex: @example.com" />
+        <button mat-icon-button matSuffix *ngIf="searchEmail" (click)="searchEmail=''; applySearch()" aria-label="Effacer">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <div class="flex gap-2">
+        <button mat-stroked-button color="primary" (click)="applySearch()" [disabled]="loading">
+          <mat-icon>search</mat-icon>
+          Filtrer
+        </button>
+        <button mat-button (click)="search=''; searchEmail=''; applySearch()" [disabled]="loading">Réinitialiser</button>
+      </div>
     </div>
 
     <ng2-smart-table

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -44,25 +44,38 @@ export class TodoDialogComponent implements OnInit {
   readonly labels = TODO_LABELS;
   filteredPersons$!: Observable<Person[]>;
 
-  form = this.fb.group({
-    title: [this.data.todo?.title ?? '', [Validators.required, minTrimmedLengthValidator(3)]],
-    person: [this.data.todo?.person ?? null, Validators.required],
-    startDate: [this.data.todo?.startDate ?? this.todayString(), Validators.required],
-    endDate: [
-      { value: this.data.todo?.endDate ?? null, disabled: this.data.todo?.completed ?? false },
-      Validators.nullValidator
-    ],
-    completed: [this.data.todo?.completed ?? false],
-    priority: [this.data.todo?.priority ?? ('Moyen' as TodoPriority), Validators.required],
-    labels: [this.data.todo?.labels ?? ([] as TodoLabel[])],
-    description: [this.data.todo?.description ?? '']
-  });
+  form!: FormGroup<{
+    title: FormControl<string>;
+    person: FormControl<Person | null>;
+    startDate: FormControl<string>;
+    endDate: FormControl<string | null>;
+    completed: FormControl<boolean>;
+    priority: FormControl<TodoPriority>;
+    labels: FormControl<TodoLabel[]>;
+    description: FormControl<string>;
+  }>;
 
   constructor(
     private readonly fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: TodoDialogData,
     private readonly dialogRef: MatDialogRef<TodoDialogComponent>
-  ) {}
+  ) {
+    this.form = this.fb.group({
+      title: this.fb.nonNullable.control(this.data.todo?.title ?? '', [
+        Validators.required,
+        minTrimmedLengthValidator(3)
+      ]),
+      person: this.fb.control<Person | null>(this.data.todo?.person ?? null, Validators.required),
+      startDate: this.fb.nonNullable.control(this.data.todo?.startDate ?? this.todayString(), Validators.required),
+      endDate: this.fb.control<string | null>(
+        { value: this.data.todo?.endDate ?? null, disabled: this.data.todo?.completed ?? false }
+      ),
+      completed: this.fb.nonNullable.control(this.data.todo?.completed ?? false),
+      priority: this.fb.nonNullable.control(this.data.todo?.priority ?? ('Moyen' as TodoPriority), Validators.required),
+      labels: this.fb.nonNullable.control<TodoLabel[]>(this.data.todo?.labels ?? []),
+      description: this.fb.nonNullable.control(this.data.todo?.description ?? '')
+    });
+  }
 
   ngOnInit(): void {
     this.filteredPersons$ = this.form.controls.person.valueChanges.pipe(

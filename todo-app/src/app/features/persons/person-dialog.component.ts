@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -22,20 +22,26 @@ export interface PersonDialogData {
   styleUrl: './person-dialog.component.scss'
 })
 export class PersonDialogComponent {
-  form = this.fb.group({
-    name: [
-      this.data.person?.name ?? '',
-      [Validators.required, minTrimmedLengthValidator(3), uniqueNameValidator(this.data.existing, this.data.person?.id)]
-    ],
-    email: [this.data.person?.email ?? '', [Validators.required, Validators.email]],
-    phone: [this.data.person?.phone ?? '', [Validators.required, minTrimmedLengthValidator(3)]]
-  });
+  form!: FormGroup<{
+    name: FormControl<string>;
+    email: FormControl<string>;
+    phone: FormControl<string>;
+  }>;
 
   constructor(
     private readonly fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: PersonDialogData,
     private readonly dialogRef: MatDialogRef<PersonDialogComponent>
-  ) {}
+  ) {
+    this.form = this.fb.nonNullable.group({
+      name: [
+        data.person?.name ?? '',
+        [Validators.required, minTrimmedLengthValidator(3), uniqueNameValidator(data.existing, data.person?.id)]
+      ],
+      email: [data.person?.email ?? '', [Validators.required, Validators.email]],
+      phone: [data.person?.phone ?? '', [Validators.required, minTrimmedLengthValidator(3)]]
+    });
+  }
 
   save(): void {
     if (this.form.invalid) {
@@ -44,7 +50,7 @@ export class PersonDialogComponent {
     }
     const payload: Person = {
       ...this.data.person,
-      ...this.form.value
+      ...this.form.getRawValue()
     };
     this.dialogRef.close(payload);
   }

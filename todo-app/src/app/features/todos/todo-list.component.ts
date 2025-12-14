@@ -11,15 +11,15 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
-import { Ng2SmartTableModule, LocalDataSource } from 'ng2-smart-table';
 
 import { TodoService } from '../../core/services/todo.service';
 import { PersonService } from '../../core/services/person.service';
-import { Todo, TodoLabel, TodoPriority } from '../../core/models/todo.model';
-import { TODO_LABELS } from '../../core/models/todo-label.enum';
-import { TODO_PRIORITIES } from '../../core/models/todo-priority.enum';
+import { Todo } from '../../core/models/todo.model';
+import { TodoLabel, TODO_LABELS } from '../../core/models/todo-label.enum';
+import { TodoPriority, TODO_PRIORITIES } from '../../core/models/todo-priority.enum';
 import { Person } from '../../core/models/person.model';
 import { TodoDialogComponent } from './todo-dialog.component';
+import { SmartTableModule } from '../../shared/smart-table/smart-table.module';
 
 @Component({
   selector: 'app-todo-list',
@@ -27,7 +27,7 @@ import { TodoDialogComponent } from './todo-dialog.component';
   imports: [
     CommonModule,
     FormsModule,
-    Ng2SmartTableModule,
+    SmartTableModule,
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
@@ -43,17 +43,14 @@ import { TodoDialogComponent } from './todo-dialog.component';
   styleUrl: './todo-list.component.scss'
 })
 export class TodoListComponent implements OnInit {
-  source = new LocalDataSource();
+  source: Todo[] = [];
   settings = {
     actions: {
-      add: false,
-      edit: false,
-      delete: false,
       custom: [
-        { name: 'edit', title: '<i class=\"material-icons text-primary\">edit</i>' },
-        { name: 'delete', title: '<i class=\"material-icons text-warn\">delete</i>' }
+        { name: 'edit', icon: 'edit', color: 'primary' },
+        { name: 'delete', icon: 'delete', color: 'warn' }
       ],
-      position: 'right'
+      position: 'right' as const
     },
     columns: {
       title: { title: 'Titre' },
@@ -73,8 +70,7 @@ export class TodoListComponent implements OnInit {
         valuePrepareFunction: (completed: boolean) => (completed ? 'Oui' : 'Non')
       }
     },
-    noDataMessage: 'Aucune tâche',
-    pager: { display: false }
+    noDataMessage: 'Aucune tâche'
   };
 
   pageIndex = 0;
@@ -109,7 +105,7 @@ export class TodoListComponent implements OnInit {
       })
       .subscribe((result) => {
         this.total = result.total;
-        this.source.load(result.data);
+        this.source = result.data;
         this.loading = false;
       });
   }
