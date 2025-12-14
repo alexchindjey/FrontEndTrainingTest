@@ -19,9 +19,17 @@
 
     <div class="labels">
       <h4>Labels</h4>
-      <button class="label-chip" *ngFor="let label of labels" (click)="filters.label = label; applyFilters()">
+      <button
+        class="label-chip"
+        *ngFor="let label of labels"
+        (click)="sortByLabel = label; applyFilters()"
+        [class.active]="sortByLabel === label"
+      >
         <span class="dot" [style.background]="labelColor(label)"></span>
         {{ label }}
+      </button>
+      <button class="label-chip ghost" (click)="sortByLabel = undefined; applyFilters()" [disabled]="!sortByLabel">
+        {{ 'tasks.filters.all' | transloco }}
       </button>
     </div>
   </aside>

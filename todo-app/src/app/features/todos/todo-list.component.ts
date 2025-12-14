@@ -11,6 +11,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import { TodoService } from '../../core/services/todo.service';
 import { PersonService } from '../../core/services/person.service';
@@ -43,6 +44,7 @@ import autoTable from 'jspdf-autotable';
     MatChipsModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
+    MatButtonToggleModule,
     TranslocoModule
   ],
   templateUrl: './todo-list.component.html',
@@ -54,6 +56,7 @@ export class TodoListComponent implements OnInit {
   pageSize = 5;
   total = 0;
   filters: { priority?: TodoPriority; label?: TodoLabel; completed?: boolean } = {};
+  sortByLabel: TodoLabel | undefined;
   loading = false;
   persons: Person[] = [];
   searchTerm = '';
@@ -86,7 +89,7 @@ export class TodoListComponent implements OnInit {
         page: this.pageIndex + 1,
         limit: this.pageSize,
         priority: this.filters.priority,
-        label: this.filters.label,
+        label: this.sortByLabel ?? this.filters.label,
         completed: this.filters.completed,
         search: this.searchTerm
       })

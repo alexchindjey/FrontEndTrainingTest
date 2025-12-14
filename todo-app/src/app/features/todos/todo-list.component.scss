@@ -72,6 +72,16 @@
   border-color: #cbd5e1;
 }
 
+.label-chip.active {
+  border-color: #2563eb;
+  background: #e0ecff;
+}
+
+.label-chip.ghost {
+  justify-content: center;
+  color: #475569;
+}
+
 .dot {
   width: 10px;
   height: 10px;
