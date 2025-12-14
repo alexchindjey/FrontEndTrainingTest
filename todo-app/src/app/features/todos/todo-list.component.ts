@@ -12,6 +12,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { TodoService } from '../../core/services/todo.service';
 import { PersonService } from '../../core/services/person.service';
@@ -45,6 +46,7 @@ import autoTable from 'jspdf-autotable';
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatButtonToggleModule,
+    MatTooltipModule,
     TranslocoModule
   ],
   templateUrl: './todo-list.component.html',
@@ -84,18 +86,22 @@ export class TodoListComponent implements OnInit {
 
   loadTodos(): void {
     this.loading = true;
+    const labelFilter = this.sortByLabel ?? this.filters.label;
     this.todoService
       .list({
         page: this.pageIndex + 1,
         limit: this.pageSize,
         priority: this.filters.priority,
-        label: this.sortByLabel ?? this.filters.label,
+        label: labelFilter,
         completed: this.filters.completed,
         search: this.searchTerm
       })
       .subscribe((result) => {
         this.total = result.total;
-        this.source = result.data;
+        const data = labelFilter
+          ? result.data.filter((todo) => (todo.labels || []).includes(labelFilter))
+          : result.data;
+        this.source = data;
         this.loading = false;
       });
   }
