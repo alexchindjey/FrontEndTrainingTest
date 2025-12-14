@@ -45,11 +45,7 @@ export class PersonListComponent implements OnInit {
       ],
       position: 'right' as const
     },
-    columns: {
-      name: { title: 'persons.columns.name', type: 'avatar' as const, field: 'name' },
-      email: { title: 'persons.columns.email' },
-      phone: { title: 'persons.columns.phone' }
-    },
+    columns: {},
     noDataMessage: 'persons.noData'
   };
 
@@ -68,6 +64,22 @@ export class PersonListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.settings = {
+      ...this.settings,
+      columns: {
+        name: {
+          title: 'persons.columns.name',
+          type: 'avatar' as const,
+          field: 'name',
+          valuePrepareFunction: (value: string, row: Person) => this.highlightPerson(value, row)
+        },
+        email: {
+          title: 'persons.columns.email',
+          valuePrepareFunction: (value: string) => this.highlightEmail(value)
+        },
+        phone: { title: 'persons.columns.phone' }
+      }
+    };
     this.loadPersons();
   }
 
@@ -141,5 +153,27 @@ export class PersonListComponent implements OnInit {
   applySearch(): void {
     this.pageIndex = 0;
     this.loadPersons();
+  }
+
+  private highlightPerson(value: string, row: Person): string {
+    return this.highlightText(value ?? this.resolveFallback(row), [this.search, this.searchEmail]);
+  }
+
+  private highlightEmail(value: string): string {
+    return this.highlightText(value, [this.search, this.searchEmail]);
+  }
+
+  private highlightText(text: string | undefined, terms: string[]): string {
+    if (!text) return '';
+    const activeTerms = terms.map((t) => t.trim()).filter(Boolean);
+    if (!activeTerms.length) return text;
+    return activeTerms.reduce((acc, term) => {
+      const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return acc.replace(new RegExp(escaped, 'gi'), (match) => `<mark class="highlight-mark">${match}</mark>`);
+    }, text);
+  }
+
+  private resolveFallback(row: Person): string {
+    return row.name ?? '';
   }
 }

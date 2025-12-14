@@ -81,11 +81,14 @@
         </div>
         <div class="list-row" *ngFor="let todo of source">
           <div class="title-cell">
-            <div class="title">{{ todo.title }}</div>
+            <div class="title" [innerHTML]="highlightText(todo.title, searchTerm)"></div>
           </div>
           <div class="person-cell">
             <div class="avatar">{{ avatarInitials(todo) }}</div>
-            <div class="subtitle strong">{{ todo.person?.name || ('tasks.unassigned' | transloco) }}</div>
+            <div
+              class="subtitle strong"
+              [innerHTML]="highlightText(todo.person?.name || ('tasks.unassigned' | transloco), searchTerm)"
+            ></div>
           </div>
           <div class="labels-cell">
             <span class="label-dot" *ngFor="let label of todo.labels" [style.background]="labelColor(label)"></span>

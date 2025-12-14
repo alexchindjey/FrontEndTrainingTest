@@ -25,13 +25,12 @@
             <div class="avatar">
               {{ renderCell(column.config, row[column.key], row) }}
             </div>
-            <span class="avatar-label">
-              {{ column.config.field ? resolveName(row, column.config.field, row[column.key]) : renderCell(column.config, row[column.key], row) }}
-            </span>
+            <span
+              class="avatar-label"
+              [innerHTML]="renderLabel(column.config, row, column.config.field ? resolveName(row, column.config.field, row[column.key]) : row[column.key])"
+            ></span>
           </div>
-          <span *ngSwitchDefault>
-            {{ renderCell(column.config, row[column.key], row) }}
-          </span>
+          <span *ngSwitchDefault [innerHTML]="renderText(column.config, row[column.key], row)"></span>
         </ng-container>
       </td>
     </ng-container>

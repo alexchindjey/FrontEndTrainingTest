@@ -225,6 +225,14 @@ export class TodoListComponent implements OnInit {
     this.applyFilters();
   }
 
+  highlightText(text: string | undefined, term: string): string {
+    if (!text) return '';
+    const clean = term?.trim();
+    if (!clean) return text;
+    const escaped = clean.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return text.replace(new RegExp(escaped, 'gi'), (match) => `<mark class="highlight-mark">${match}</mark>`);
+  }
+
   isLabelSelected(label: TodoLabel): boolean {
     return this.selectedLabels.includes(label);
   }
