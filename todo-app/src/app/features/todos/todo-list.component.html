@@ -63,7 +63,6 @@
       <div [class.opacity-50]="loading">
         <div class="list-row header">
           <span></span>
-          <span></span>
           <span>{{ 'tasks.columns.title' | transloco }}</span>
           <span>{{ 'tasks.columns.labels' | transloco }}</span>
           <span>{{ 'tasks.columns.completed' | transloco }}</span>
@@ -72,12 +71,14 @@
         </div>
         <div class="list-row" *ngFor="let todo of source">
           <mat-checkbox color="primary"></mat-checkbox>
-          <div class="person-cell">
-            <div class="avatar">{{ avatarInitials(todo) }}</div>
-          </div>
           <div class="title-cell">
-            <div class="title">{{ todo.title }}</div>
-            <div class="subtitle">{{ todo.person?.name }}</div>
+            <div class="person-cell">
+              <div class="avatar">{{ avatarInitials(todo) }}</div>
+              <div>
+                <div class="title">{{ todo.title }}</div>
+                <div class="subtitle">{{ todo.person?.name }}</div>
+              </div>
+            </div>
           </div>
           <div class="labels-cell">
             <span class="label-dot" *ngFor="let label of todo.labels" [style.background]="labelColor(label)"></span>

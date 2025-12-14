@@ -87,7 +87,8 @@ export class TodoListComponent implements OnInit {
         limit: this.pageSize,
         priority: this.filters.priority,
         label: this.filters.label,
-        completed: this.filters.completed
+        completed: this.filters.completed,
+        search: this.searchTerm
       })
       .subscribe((result) => {
         this.total = result.total;
