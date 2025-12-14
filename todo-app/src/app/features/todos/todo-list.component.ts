@@ -93,8 +93,7 @@ export class TodoListComponent implements OnInit {
         all: true,
         priority: this.filters.priority,
         labels: combinedLabels,
-        completed: this.filters.completed,
-        search: this.searchTerm
+        completed: this.filters.completed
       })
       .subscribe({
         next: (result) => {
@@ -110,7 +109,16 @@ export class TodoListComponent implements OnInit {
               )
             : withPerson;
 
-          const totalPages = Math.max(Math.ceil(filtered.length / this.pageSize) - 1, 0);
+          const search = this.searchTerm.trim().toLowerCase();
+          const searched = search
+            ? filtered.filter((todo) => {
+                const titleMatch = todo.title?.toLowerCase().includes(search);
+                const personMatch = todo.person?.name?.toLowerCase().includes(search);
+                return titleMatch || personMatch;
+              })
+            : filtered;
+
+          const totalPages = Math.max(Math.ceil(searched.length / this.pageSize) - 1, 0);
           if (this.pageIndex > totalPages) {
             this.pageIndex = totalPages;
           }
@@ -118,8 +126,8 @@ export class TodoListComponent implements OnInit {
           const start = this.pageIndex * this.pageSize;
           const end = start + this.pageSize;
 
-          this.total = filtered.length;
-          this.source = filtered.slice(start, end);
+          this.total = searched.length;
+          this.source = searched.slice(start, end);
         },
         error: () => {
           this.loading = false;

@@ -74,9 +74,19 @@ export class PersonListComponent implements OnInit {
   loadPersons(): void {
     this.loading = true;
     this.personService
-      .list({ all: true, search: this.search, email: this.searchEmail })
+      .list({ all: true })
       .subscribe((result) => {
-        const filtered = result.data;
+        const term = this.search.trim().toLowerCase();
+        const emailTerm = this.searchEmail.trim().toLowerCase();
+
+        const filtered = result.data.filter((p) => {
+          const name = p.name?.toLowerCase() ?? '';
+          const email = p.email?.toLowerCase() ?? '';
+          const matchesTerm = !term || name.includes(term) || email.includes(term);
+          const matchesEmail = !emailTerm || email.includes(emailTerm) || name.includes(emailTerm);
+          return matchesTerm && matchesEmail;
+        });
+
         const totalPages = Math.max(Math.ceil(filtered.length / this.pageSize) - 1, 0);
         if (this.pageIndex > totalPages) {
           this.pageIndex = totalPages;
