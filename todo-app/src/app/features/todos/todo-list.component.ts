@@ -86,26 +86,22 @@ export class TodoListComponent implements OnInit {
 
   loadTodos(): void {
     this.loading = true;
-    const combinedLabels = new Set<TodoLabel>([
+    const combinedLabels = [
       ...(this.selectedLabels || []),
       ...(this.filters.label ? [this.filters.label] : [])
-    ]);
+    ];
     this.todoService
       .list({
         page: this.pageIndex + 1,
         limit: this.pageSize,
         priority: this.filters.priority,
+        labels: combinedLabels,
         completed: this.filters.completed,
         search: this.searchTerm
       })
       .subscribe((result) => {
-        const activeLabels = [...combinedLabels];
-        const data =
-          activeLabels.length > 0
-            ? result.data.filter((todo) => activeLabels.every((l) => (todo.labels || []).includes(l)))
-            : result.data;
-        this.total = data.length;
-        this.source = data;
+        this.total = result.total;
+        this.source = result.data;
         this.loading = false;
       });
   }
@@ -206,6 +202,12 @@ export class TodoListComponent implements OnInit {
     this.selectedLabels = [];
     this.filters.label = undefined;
     this.applyFilters();
+  }
+
+  onPageChange(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.loadTodos();
   }
 
   exportExcel(): void {

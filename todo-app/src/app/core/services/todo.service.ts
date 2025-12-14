@@ -15,6 +15,7 @@ export interface TodoQueryParams {
   label?: TodoLabel;
   completed?: boolean;
   search?: string;
+  labels?: TodoLabel[];
 }
 
 @Injectable({ providedIn: 'root' })
@@ -28,6 +29,11 @@ export class TodoService {
     if (params.limit) httpParams = httpParams.set('_limit', params.limit);
     if (params.priority) httpParams = httpParams.set('priority', params.priority);
     if (params.label) httpParams = httpParams.set('labels_like', params.label);
+    if (params.labels && params.labels.length > 0) {
+      params.labels.forEach((l) => {
+        httpParams = httpParams.append('labels_like', l);
+      });
+    }
     if (params.completed !== undefined) httpParams = httpParams.set('completed', params.completed);
     if (params.search) httpParams = httpParams.set('title_like', params.search);
 
