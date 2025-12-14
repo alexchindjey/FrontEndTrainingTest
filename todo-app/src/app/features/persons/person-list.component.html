@@ -6,11 +6,9 @@
   </div>
   <div class="flex gap-3">
     <button mat-stroked-button color="primary" (click)="loadPersons()" [disabled]="loading">
-      <mat-icon>refresh</mat-icon>
       {{ 'common.refresh' | transloco }}
     </button>
     <button mat-flat-button color="primary" (click)="openDialog()">
-      <mat-icon>add</mat-icon>
       {{ 'common.add' | transloco }}
     </button>
   </div>
@@ -37,7 +35,6 @@
 
       <div class="flex gap-2 filter-actions">
         <button mat-stroked-button color="primary" (click)="applySearch()" [disabled]="loading">
-          <mat-icon>search</mat-icon>
           {{ 'common.filter' | transloco }}
         </button>
         <button mat-button (click)="search=''; searchEmail=''; applySearch()" [disabled]="loading">

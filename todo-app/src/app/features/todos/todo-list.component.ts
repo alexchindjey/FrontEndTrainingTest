@@ -169,6 +169,11 @@ export class TodoListComponent implements OnInit {
     this.applyFilters();
   }
 
+  toggleCompleted(value: boolean | undefined): void {
+    this.filters.completed = value;
+    this.applyFilters();
+  }
+
   exportExcel(): void {
     const yes = this.transloco.translate('common.yes');
     const no = this.transloco.translate('common.no');

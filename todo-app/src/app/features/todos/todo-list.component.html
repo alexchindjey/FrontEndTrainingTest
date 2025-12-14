@@ -1,26 +1,18 @@
 <div class="board">
   <aside class="sidebar">
     <button mat-stroked-button color="primary" class="add-btn" (click)="openDialog()">
-      <mat-icon>add</mat-icon>
       {{ 'common.add' | transloco }}
     </button>
 
     <nav class="nav">
       <h4>{{ 'tasks.eyebrow' | transloco }}</h4>
       <button class="nav-item active" (click)="resetFilters()">
-        <mat-icon>list_alt</mat-icon>
         {{ 'tasks.filters.all' | transloco }}
       </button>
-      <button class="nav-item" (click)="filters.completed = undefined; applyFilters()">
-        <mat-icon>sync_alt</mat-icon>
-        {{ 'common.reset' | transloco }}
-      </button>
       <button class="nav-item" (click)="toggleCompleted(false)">
-        <mat-icon>schedule</mat-icon>
         {{ 'tasks.filters.pending' | transloco }}
       </button>
       <button class="nav-item" (click)="toggleCompleted(true)">
-        <mat-icon>check_circle</mat-icon>
         {{ 'tasks.filters.completed' | transloco }}
       </button>
     </nav>
@@ -37,7 +29,6 @@
   <section class="board-content">
     <header class="board-toolbar">
       <div class="search">
-        <mat-icon>search</mat-icon>
         <input type="text" placeholder="{{ 'common.search' | transloco }}" [(ngModel)]="searchTerm" (keyup.enter)="applyFilters()" />
       </div>
       <div class="filters">
@@ -54,15 +45,12 @@
           </mat-select>
         </mat-form-field>
         <button mat-stroked-button color="primary" (click)="loadTodos()" [disabled]="loading">
-          <mat-icon>refresh</mat-icon>
           {{ 'common.refresh' | transloco }}
         </button>
         <button mat-stroked-button color="primary" (click)="exportExcel()" [disabled]="loading || !source.length">
-          <mat-icon>table_view</mat-icon>
           {{ 'tasks.exportExcel' | transloco }}
         </button>
         <button mat-stroked-button color="primary" (click)="exportPdf()" [disabled]="loading || !source.length">
-          <mat-icon>picture_as_pdf</mat-icon>
           {{ 'tasks.exportPdf' | transloco }}
         </button>
       </div>
