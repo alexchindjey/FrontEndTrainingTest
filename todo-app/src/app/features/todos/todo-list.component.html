@@ -70,7 +70,6 @@
       </div>
       <div [class.opacity-50]="loading">
         <div class="list-row header">
-          <span></span>
           <span>{{ 'tasks.columns.title' | transloco }}</span>
           <span>{{ 'tasks.columns.person' | transloco }}</span>
           <span>{{ 'tasks.columns.labels' | transloco }}</span>
@@ -79,7 +78,6 @@
           <span></span>
         </div>
         <div class="list-row" *ngFor="let todo of source">
-          <mat-checkbox color="primary"></mat-checkbox>
           <div class="title-cell">
             <div class="title">{{ todo.title }}</div>
           </div>

@@ -8,7 +8,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -43,7 +42,6 @@ import autoTable from 'jspdf-autotable';
     MatCardModule,
     MatPaginatorModule,
     MatChipsModule,
-    MatCheckboxModule,
     MatProgressSpinnerModule,
     MatButtonToggleModule,
     MatTooltipModule,
