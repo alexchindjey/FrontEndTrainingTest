@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "mock:server": "json-server --watch mock/db.json --delay 300 --port 3000"
   },
   "private": true,
   "dependencies": {
@@ -31,6 +32,7 @@
     "@types/jasmine": "~5.1.0",
     "autoprefixer": "^10.4.22",
     "jasmine-core": "~5.2.0",
+    "json-server": "^1.0.0-beta.3",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",

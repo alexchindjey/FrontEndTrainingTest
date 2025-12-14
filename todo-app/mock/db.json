@@ -1,0 +1,57 @@
+{
+  "persons": [
+    {
+      "id": 1,
+      "name": "Alice Martin",
+      "email": "alice.martin@example.com",
+      "phone": "+33 6 00 00 00 01"
+    },
+    {
+      "id": 2,
+      "name": "Bruno Dupont",
+      "email": "bruno.dupont@example.com",
+      "phone": "+33 6 00 00 00 02"
+    },
+    {
+      "id": 3,
+      "name": "Chloé Bernard",
+      "email": "chloe.bernard@example.com",
+      "phone": "+33 6 00 00 00 03"
+    }
+  ],
+  "todos": [
+    {
+      "id": 1,
+      "title": "Mettre à jour la maquette",
+      "personId": 1,
+      "startDate": "2024-12-10",
+      "endDate": null,
+      "completed": false,
+      "priority": "Moyen",
+      "labels": ["HTML", "CSS"],
+      "description": "Prendre en compte les retours UX sur la page d'accueil."
+    },
+    {
+      "id": 2,
+      "title": "Brancher l'API mock",
+      "personId": 2,
+      "startDate": "2024-12-11",
+      "endDate": null,
+      "completed": false,
+      "priority": "Facile",
+      "labels": ["NODE JS"],
+      "description": "Installer json-server et exposer les endpoints REST."
+    },
+    {
+      "id": 3,
+      "title": "Mettre en place l'autocomplete",
+      "personId": 3,
+      "startDate": "2024-12-09",
+      "endDate": "2024-12-13",
+      "completed": true,
+      "priority": "Difficile",
+      "labels": ["JQUERY", "CSS"],
+      "description": "Autocomplete pour la sélection des personnes dans la modale."
+    }
+  ]
+}

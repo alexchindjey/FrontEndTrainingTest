@@ -1,27 +1,35 @@
-# TodoApp
+# Angular TODO List
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.21.
+Projet Angular 18 standalone avec Angular Material, TailwindCSS et un mock API `json-server`.
 
-## Development server
+## Démarrer en local
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```bash
+# depuis le dossier todo-app
+npm install
+npm run mock:server   # API mock sur http://localhost:3000
+npm start             # front sur http://localhost:4200
+```
 
-## Code scaffolding
+## Périmètre mock
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Ressources exposées : `/todos` et `/persons`
+- Pagination/filtre supportés côté mock : `_page`, `_limit`, `priority`, `labels_like`, `name_like`
+- L’API renvoie `X-Total-Count` pour faciliter la pagination.
 
-## Build
+## Stack
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Angular 18 standalone
+- Angular Material (thème azur/bleu)
+- TailwindCSS utility-first
+- json-server pour les données simulées
 
-## Running unit tests
+## Scripts utiles
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- `npm start` : démarre le front en mode dev
+- `npm run mock:server` : démarre json-server sur `http://localhost:3000`
+- `npm run build` : build de prod (voir note sur esbuild si besoin)
 
-## Running end-to-end tests
+## Note build/esbuild
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Sur certaines machines, le build Angular peut échouer avec un deadlock esbuild. Si c’est le cas, réinstaller `node_modules`, tester une version LTS différente de Node ou repasser le builder sur webpack.
