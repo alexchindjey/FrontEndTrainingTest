@@ -9,6 +9,7 @@ import { TodoLabel } from '../models/todo-label.enum';
 import { TodoPriority } from '../models/todo-priority.enum';
 
 export interface TodoQueryParams {
+  all?: boolean;
   page?: number;
   limit?: number;
   priority?: TodoPriority;
@@ -30,8 +31,10 @@ export class TodoService {
       ...(params.label ? [params.label] : [])
     ].filter(Boolean);
 
-    if (params.page) httpParams = httpParams.set('_page', params.page);
-    if (params.limit) httpParams = httpParams.set('_limit', params.limit);
+    if (!params.all) {
+      if (params.page) httpParams = httpParams.set('_page', params.page);
+      if (params.limit) httpParams = httpParams.set('_limit', params.limit);
+    }
     if (params.priority) httpParams = httpParams.set('priority', params.priority);
     if (labelsFilter.length) httpParams = httpParams.set('labels_like', labelsFilter.join('|'));
     if (params.completed !== undefined) httpParams = httpParams.set('completed', params.completed);

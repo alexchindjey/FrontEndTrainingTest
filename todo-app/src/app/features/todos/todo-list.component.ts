@@ -92,8 +92,7 @@ export class TodoListComponent implements OnInit {
 
     this.todoService
       .list({
-        page: this.pageIndex + 1,
-        limit: this.pageSize,
+        all: true,
         priority: this.filters.priority,
         labels: combinedLabels,
         completed: this.filters.completed,
@@ -101,8 +100,22 @@ export class TodoListComponent implements OnInit {
       })
       .subscribe({
         next: (result) => {
-          this.total = result.total;
-          this.source = result.data;
+          const filtered = combinedLabels.length
+            ? result.data.filter((todo) =>
+                combinedLabels.every((label) => (todo.labels || []).includes(label as TodoLabel))
+              )
+            : result.data;
+
+          const totalPages = Math.max(Math.ceil(filtered.length / this.pageSize) - 1, 0);
+          if (this.pageIndex > totalPages) {
+            this.pageIndex = totalPages;
+          }
+
+          const start = this.pageIndex * this.pageSize;
+          const end = start + this.pageSize;
+
+          this.total = filtered.length;
+          this.source = filtered.slice(start, end);
         },
         error: () => {
           this.loading = false;
