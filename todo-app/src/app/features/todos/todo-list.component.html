@@ -74,6 +74,7 @@
           <span>{{ 'tasks.columns.person' | transloco }}</span>
           <span>{{ 'tasks.columns.labels' | transloco }}</span>
           <span>{{ 'tasks.columns.completed' | transloco }}</span>
+          <span>{{ 'tasks.columns.startDate' | transloco }}</span>
           <span>{{ 'tasks.columns.endDate' | transloco }}</span>
           <span></span>
         </div>
@@ -92,6 +93,9 @@
             <span class="pill" [class.done]="todo.completed">
               {{ todo.completed ? ('common.yes' | transloco) : ('common.no' | transloco) }}
             </span>
+          </div>
+          <div class="date-cell">
+            {{ todo.startDate }}
           </div>
           <div class="date-cell">
             {{ scheduleText(todo) }}
