@@ -18,7 +18,7 @@
     </ng-container>
 
     <ng-container *ngFor="let column of columnsEntries" [matColumnDef]="column.key">
-      <th mat-header-cell *matHeaderCellDef>{{ column.config.title || column.key }}</th>
+      <th mat-header-cell *matHeaderCellDef>{{ column.config.title | transloco }}</th>
       <td mat-cell *matCellDef="let row">
         {{ renderCell(column.config, row[column.key], row) }}
       </td>
@@ -46,6 +46,6 @@
   </table>
 
   <div class="no-data" *ngIf="!source?.length">
-    {{ settings.noDataMessage || 'Aucune donnée' }}
+    {{ settings.noDataMessage ? (settings.noDataMessage | transloco) : ('common.noData' | transloco) }}
   </div>
 </div>

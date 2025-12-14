@@ -1,0 +1,76 @@
+{
+  "app": {
+    "title": "Angular TODO List",
+    "nav": {"tasks": "Tasks", "persons": "Persons", "docs": "Docs"}
+  },
+  "common": {
+    "refresh": "Refresh",
+    "add": "Add",
+    "filter": "Filter",
+    "reset": "Reset",
+    "cancel": "Cancel",
+    "save": "Save",
+    "search": "Search",
+    "noData": "No data",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "tasks": {
+    "eyebrow": "Tasks",
+    "title": "Task list",
+    "subtitle": "Read-only table, actions via modal and filters.",
+    "priority": "Priority",
+    "label": "Label",
+    "filters": {"all": "All"},
+    "columns": {
+      "title": "Title",
+      "person": "Person",
+      "priority": "Priority",
+      "startDate": "Start",
+      "endDate": "End",
+      "labels": "Labels",
+      "completed": "Done"
+    },
+    "noData": "No tasks",
+    "confirmDelete": "Delete \"{{title}}\" ?",
+    "exportExcel": "Export Excel",
+    "exportPdf": "Export PDF"
+  },
+  "persons": {
+    "eyebrow": "Persons",
+    "title": "Person management",
+    "subtitle": "Read-only table, actions via modal.",
+    "searchName": "Search name",
+    "searchEmail": "Search email",
+    "columns": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone"
+    },
+    "noData": "No persons",
+    "confirmDelete": "Delete {{name}} ?"
+  },
+  "dialog": {
+    "todo": {"add": "Add task", "edit": "Edit task"},
+    "person": {"add": "Add person", "edit": "Edit person"},
+    "fields": {
+      "title": "Title",
+      "person": "Person",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "priority": "Priority",
+      "labels": "Labels",
+      "completed": "Completed (end date locked)",
+      "description": "Description",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone"
+    },
+    "errors": {
+      "required": "Required",
+      "min3": "Minimum 3 characters",
+      "email": "Invalid email",
+      "nameTaken": "Name already used"
+    }
+  }
+}

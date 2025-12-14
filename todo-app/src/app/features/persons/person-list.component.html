@@ -1,17 +1,17 @@
 <div class="page-header">
   <div>
-    <p class="eyebrow">Personnes</p>
-    <h1>Gestion des personnes</h1>
-    <p class="muted">Tableau en lecture seule, actions via modale.</p>
+    <p class="eyebrow">{{ 'persons.eyebrow' | transloco }}</p>
+    <h1>{{ 'persons.title' | transloco }}</h1>
+    <p class="muted">{{ 'persons.subtitle' | transloco }}</p>
   </div>
   <div class="flex gap-3">
     <button mat-stroked-button color="primary" (click)="loadPersons()" [disabled]="loading">
       <mat-icon>refresh</mat-icon>
-      Rafraîchir
+      {{ 'common.refresh' | transloco }}
     </button>
     <button mat-flat-button color="primary" (click)="openDialog()">
       <mat-icon>add</mat-icon>
-      Ajouter
+      {{ 'common.add' | transloco }}
     </button>
   </div>
 </div>
@@ -20,7 +20,7 @@
   <div class="p-4 flex flex-col gap-4">
     <div class="grid md:grid-cols-3 gap-3 items-start">
       <mat-form-field appearance="outline" class="w-full md:w-80">
-        <mat-label>Recherche nom</mat-label>
+        <mat-label>{{ 'persons.searchName' | transloco }}</mat-label>
         <input matInput [(ngModel)]="search" (keyup.enter)="applySearch()" placeholder="ex: Alice" />
         <button mat-icon-button matSuffix *ngIf="search" (click)="search=''; applySearch()" aria-label="Effacer">
           <mat-icon>close</mat-icon>
@@ -28,7 +28,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="w-full md:w-80">
-        <mat-label>Recherche email</mat-label>
+        <mat-label>{{ 'persons.searchEmail' | transloco }}</mat-label>
         <input matInput [(ngModel)]="searchEmail" (keyup.enter)="applySearch()" placeholder="ex: @example.com" />
         <button mat-icon-button matSuffix *ngIf="searchEmail" (click)="searchEmail=''; applySearch()" aria-label="Effacer">
           <mat-icon>close</mat-icon>
@@ -38,9 +38,11 @@
       <div class="flex gap-2">
         <button mat-stroked-button color="primary" (click)="applySearch()" [disabled]="loading">
           <mat-icon>search</mat-icon>
-          Filtrer
+          {{ 'common.filter' | transloco }}
         </button>
-        <button mat-button (click)="search=''; searchEmail=''; applySearch()" [disabled]="loading">Réinitialiser</button>
+        <button mat-button (click)="search=''; searchEmail=''; applySearch()" [disabled]="loading">
+          {{ 'common.reset' | transloco }}
+        </button>
       </div>
     </div>
 

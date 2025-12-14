@@ -10,6 +10,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Observable, startWith } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { TranslocoModule } from '@ngneat/transloco';
 
 import { Todo } from '../../core/models/todo.model';
 import { TodoLabel, TODO_LABELS } from '../../core/models/todo-label.enum';
@@ -34,7 +35,8 @@ export interface TodoDialogData {
     MatSelectModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    TranslocoModule
   ],
   templateUrl: './todo-dialog.component.html',
   styleUrl: './todo-dialog.component.scss'

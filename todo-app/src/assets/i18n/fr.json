@@ -1,0 +1,76 @@
+{
+  "app": {
+    "title": "Angular TODO List",
+    "nav": {"tasks": "Tâches", "persons": "Personnes", "docs": "Consignes"}
+  },
+  "common": {
+    "refresh": "Rafraîchir",
+    "add": "Ajouter",
+    "filter": "Filtrer",
+    "reset": "Réinitialiser",
+    "cancel": "Annuler",
+    "save": "Sauvegarder",
+    "search": "Recherche",
+    "noData": "Aucune donnée",
+    "yes": "Oui",
+    "no": "Non"
+  },
+  "tasks": {
+    "eyebrow": "Tâches",
+    "title": "Liste des tâches",
+    "subtitle": "Tableau en lecture seule, actions via modale et filtres.",
+    "priority": "Priorité",
+    "label": "Label",
+    "filters": {"all": "Toutes"},
+    "columns": {
+      "title": "Titre",
+      "person": "Personne",
+      "priority": "Priorité",
+      "startDate": "Début",
+      "endDate": "Fin",
+      "labels": "Labels",
+      "completed": "Terminé"
+    },
+    "noData": "Aucune tâche",
+    "confirmDelete": "Supprimer \"{{title}}\" ?",
+    "exportExcel": "Exporter Excel",
+    "exportPdf": "Exporter PDF"
+  },
+  "persons": {
+    "eyebrow": "Personnes",
+    "title": "Gestion des personnes",
+    "subtitle": "Tableau en lecture seule, actions via modale.",
+    "searchName": "Recherche nom",
+    "searchEmail": "Recherche email",
+    "columns": {
+      "name": "Nom",
+      "email": "Email",
+      "phone": "Téléphone"
+    },
+    "noData": "Aucune personne",
+    "confirmDelete": "Supprimer {{name}} ?"
+  },
+  "dialog": {
+    "todo": {"add": "Ajouter une tâche", "edit": "Modifier une tâche"},
+    "person": {"add": "Ajouter une personne", "edit": "Modifier une personne"},
+    "fields": {
+      "title": "Titre",
+      "person": "Personne",
+      "startDate": "Date de début",
+      "endDate": "Date de fin",
+      "priority": "Priorité",
+      "labels": "Labels",
+      "completed": "Terminée (date de fin figée)",
+      "description": "Description",
+      "name": "Nom",
+      "email": "Email",
+      "phone": "Téléphone"
+    },
+    "errors": {
+      "required": "Champ requis",
+      "min3": "Minimum 3 caractères",
+      "email": "Email invalide",
+      "nameTaken": "Nom déjà utilisé"
+    }
+  }
+}

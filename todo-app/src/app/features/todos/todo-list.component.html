@@ -1,17 +1,25 @@
 <div class="page-header">
   <div>
-    <p class="eyebrow">Tâches</p>
-    <h1>Liste des tâches</h1>
-    <p class="muted">Tableau en lecture seule, actions via modale et filtres.</p>
+    <p class="eyebrow">{{ 'tasks.eyebrow' | transloco }}</p>
+    <h1>{{ 'tasks.title' | transloco }}</h1>
+    <p class="muted">{{ 'tasks.subtitle' | transloco }}</p>
   </div>
   <div class="flex gap-3">
     <button mat-stroked-button color="primary" (click)="loadTodos()" [disabled]="loading">
       <mat-icon>refresh</mat-icon>
-      Rafraîchir
+      {{ 'common.refresh' | transloco }}
     </button>
     <button mat-flat-button color="primary" (click)="openDialog()">
       <mat-icon>add</mat-icon>
-      Ajouter
+      {{ 'common.add' | transloco }}
+    </button>
+    <button mat-stroked-button color="primary" (click)="exportExcel()" [disabled]="loading || !source.length">
+      <mat-icon>table_view</mat-icon>
+      {{ 'tasks.exportExcel' | transloco }}
+    </button>
+    <button mat-stroked-button color="primary" (click)="exportPdf()" [disabled]="loading || !source.length">
+      <mat-icon>picture_as_pdf</mat-icon>
+      {{ 'tasks.exportPdf' | transloco }}
     </button>
   </div>
 </div>
@@ -20,17 +28,17 @@
   <div class="p-4 flex flex-col gap-4">
     <div class="grid md:grid-cols-3 gap-3">
       <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Priorité</mat-label>
+        <mat-label>{{ 'tasks.priority' | transloco }}</mat-label>
         <mat-select [(ngModel)]="filters.priority" (selectionChange)="applyFilters()">
-          <mat-option [value]="undefined">Toutes</mat-option>
+          <mat-option [value]="undefined">{{ 'tasks.filters.all' | transloco }}</mat-option>
           <mat-option *ngFor="let priority of priorities" [value]="priority">{{ priority }}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Label</mat-label>
+        <mat-label>{{ 'tasks.label' | transloco }}</mat-label>
         <mat-select [(ngModel)]="filters.label" (selectionChange)="applyFilters()">
-          <mat-option [value]="undefined">Tous</mat-option>
+          <mat-option [value]="undefined">{{ 'tasks.filters.all' | transloco }}</mat-option>
           <mat-option *ngFor="let label of labels" [value]="label">{{ label }}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -38,10 +46,10 @@
       <div class="flex items-end gap-2">
         <button mat-stroked-button color="primary" (click)="applyFilters()" [disabled]="loading">
           <mat-icon>filter_list</mat-icon>
-          Filtrer
+          {{ 'common.filter' | transloco }}
         </button>
         <button mat-button color="primary" (click)="resetFilters()" [disabled]="loading">
-          Réinitialiser
+          {{ 'common.reset' | transloco }}
         </button>
       </div>
     </div>

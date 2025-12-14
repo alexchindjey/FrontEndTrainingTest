@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
+import { TranslocoModule } from '@ngneat/transloco';
 
 import { Person } from '../../core/models/person.model';
 import { minTrimmedLengthValidator, uniqueNameValidator } from '../../shared/validators';
@@ -17,7 +18,7 @@ export interface PersonDialogData {
 @Component({
   selector: 'app-person-dialog',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, MatButtonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
+  imports: [CommonModule, MatDialogModule, MatButtonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, TranslocoModule],
   templateUrl: './person-dialog.component.html',
   styleUrl: './person-dialog.component.scss'
 })

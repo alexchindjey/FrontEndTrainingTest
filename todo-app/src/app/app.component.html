@@ -1,18 +1,26 @@
 <mat-toolbar color="primary" class="shadow-sm">
-  <span class="text-lg font-semibold">{{ title }}</span>
+  <span class="text-lg font-semibold">{{ 'app.title' | transloco }}</span>
   <span class="flex-1"></span>
   <a mat-button routerLink="/todos" routerLinkActive="active-link">
     <mat-icon>checklist</mat-icon>
-    Tâches
+    {{ 'app.nav.tasks' | transloco }}
   </a>
   <a mat-button routerLink="/persons" routerLinkActive="active-link">
     <mat-icon>group</mat-icon>
-    Personnes
+    {{ 'app.nav.persons' | transloco }}
   </a>
   <mat-divider vertical></mat-divider>
   <a mat-stroked-button color="accent" href="./README.md" target="_blank" rel="noreferrer">
-    Consignes
+    {{ 'app.nav.docs' | transloco }}
   </a>
+  <mat-select
+    class="ml-4 w-36"
+    [value]="activeLang"
+    (selectionChange)="changeLang($event.value)"
+    aria-label="Langue"
+  >
+    <mat-option *ngFor="let lang of langs" [value]="lang.code">{{ lang.label }}</mat-option>
+  </mat-select>
 </mat-toolbar>
 
 <main class="min-h-screen bg-slate-50">

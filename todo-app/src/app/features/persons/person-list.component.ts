@@ -8,11 +8,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
+import { TranslocoModule } from '@ngneat/transloco';
 
 import { PersonService } from '../../core/services/person.service';
 import { Person } from '../../core/models/person.model';
 import { PersonDialogComponent } from './person-dialog.component';
 import { SmartTableModule } from '../../shared/smart-table/smart-table.module';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-person-list',
@@ -27,7 +29,8 @@ import { SmartTableModule } from '../../shared/smart-table/smart-table.module';
     MatFormFieldModule,
     MatInputModule,
     MatPaginatorModule,
-    MatCardModule
+    MatCardModule,
+    TranslocoModule
   ],
   templateUrl: './person-list.component.html',
   styleUrl: './person-list.component.scss'
@@ -43,11 +46,11 @@ export class PersonListComponent implements OnInit {
       position: 'right' as const
     },
     columns: {
-      name: { title: 'Nom' },
-      email: { title: 'Email' },
-      phone: { title: 'Téléphone' }
+      name: { title: 'persons.columns.name' },
+      email: { title: 'persons.columns.email' },
+      phone: { title: 'persons.columns.phone' }
     },
-    noDataMessage: 'Aucune personne'
+    noDataMessage: 'persons.noData'
   };
 
   pageIndex = 0;
@@ -58,7 +61,11 @@ export class PersonListComponent implements OnInit {
   loading = false;
   personsCache: Person[] = [];
 
-  constructor(private readonly personService: PersonService, private readonly dialog: MatDialog) {}
+  constructor(
+    private readonly personService: PersonService,
+    private readonly dialog: MatDialog,
+    private readonly transloco: TranslocoService
+  ) {}
 
   ngOnInit(): void {
     this.loadPersons();
@@ -105,7 +112,10 @@ export class PersonListComponent implements OnInit {
     if (event.action === 'edit') {
       this.openDialog(person);
     }
-    if (event.action === 'delete' && confirm(`Supprimer ${person.name} ?`)) {
+    if (
+      event.action === 'delete' &&
+      confirm(this.transloco.translate('persons.confirmDelete', { name: person.name }))
+    ) {
       this.personService.delete(person.id!).subscribe(() => this.loadPersons());
     }
   }

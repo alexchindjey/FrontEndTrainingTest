@@ -24,6 +24,13 @@ npm start             # front sur http://localhost:4200
 - TailwindCSS utility-first
 - json-server pour les données simulées
 - Tableau personnalisé Material (fallback car `ng2-smart-table` n’est plus compatible Angular 18)
+- Transloco pour l’i18n (FR/EN)
+- Export Excel/PDF avec `xlsx`, `file-saver`, `jspdf`, `jspdf-autotable`
+
+## Bonus
+
+- i18n live via Transloco (sélecteur FR/EN dans la toolbar)
+- Export des tâches visibles en Excel/PDF depuis la liste
 
 ## Scripts utiles
 

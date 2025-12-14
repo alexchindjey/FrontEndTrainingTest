@@ -4,6 +4,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslocoModule } from '@ngneat/transloco';
 
 interface SmartTableColumn {
   title?: string;
@@ -22,7 +23,7 @@ interface SmartTableSettings {
 @Component({
   selector: 'ng2-smart-table',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule, MatTooltipModule],
+  imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule, MatTooltipModule, TranslocoModule],
   templateUrl: './smart-table.component.html',
   styleUrl: './smart-table.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
