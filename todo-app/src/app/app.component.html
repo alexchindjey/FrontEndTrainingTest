@@ -2,11 +2,11 @@
   <span class="text-lg font-semibold app-title">{{ 'app.title' | transloco }}</span>
   <span class="flex-1"></span>
   <a mat-button routerLink="/todos" routerLinkActive="active-link">
-    <mat-icon>checklist</mat-icon>
+    <mat-icon svgIcon="checklist_rtl"></mat-icon>
     {{ 'app.nav.tasks' | transloco }}
   </a>
   <a mat-button routerLink="/persons" routerLinkActive="active-link">
-    <mat-icon>group</mat-icon>
+    <mat-icon svgIcon="group"></mat-icon>
     {{ 'app.nav.persons' | transloco }}
   </a>
   <div class="toolbar-actions">
@@ -19,7 +19,7 @@
       <mat-option *ngFor="let lang of langs" [value]="lang.code">{{ lang.label }}</mat-option>
     </mat-select>
     <button mat-stroked-button class="theme-toggle" (click)="toggleTheme()" type="button">
-      <mat-icon>{{ isDark ? 'light_mode' : 'dark_mode' }}</mat-icon>
+      <mat-icon [svgIcon]="isDark ? 'light_mode' : 'dark_mode'"></mat-icon>
       {{ isDark ? 'Light' : 'Dark' }}
     </button>
   </div>

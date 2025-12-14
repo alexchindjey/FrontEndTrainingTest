@@ -25,7 +25,6 @@ describe('PersonListComponent (logique)', () => {
 
   it('filtre par nom ou email et calcule le total', () => {
     component.search = 'alice';
-    component.searchEmail = 'example.com';
     component.ngOnInit();
 
     expect(component.total).toBe(1); // Alice seulement avec le terme "alice"
@@ -35,7 +34,6 @@ describe('PersonListComponent (logique)', () => {
   it('réduit la page si hors bornes après filtrage', () => {
     component.pageIndex = 5; // au-delà
     component.search = 'carla';
-    component.searchEmail = '';
 
     component.loadPersons();
 

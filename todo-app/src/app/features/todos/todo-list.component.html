@@ -1,28 +1,32 @@
+<div class="page-header">
+  <h1>Gestion des Tâches</h1>
+</div>
+
 <div class="board">
   <aside class="sidebar">
     <button mat-stroked-button color="primary" class="add-btn" (click)="openDialog()">
-      <mat-icon>add</mat-icon>
+      <mat-icon svgIcon="add"></mat-icon>
       {{ 'common.add' | transloco }}
     </button>
 
     <nav class="nav">
-      <h4><mat-icon>view_list</mat-icon> {{ 'tasks.eyebrow' | transloco }}</h4>
+      <h4><mat-icon svgIcon="view_list"></mat-icon> {{ 'tasks.eyebrow' | transloco }}</h4>
       <button class="nav-item active" (click)="resetFilters()">
-        <mat-icon class="nav-icon">format_list_bulleted</mat-icon>
+        <mat-icon class="nav-icon" svgIcon="format_list_bulleted"></mat-icon>
         {{ 'tasks.filters.all' | transloco }}
       </button>
       <button class="nav-item" (click)="toggleCompleted(false)">
-        <mat-icon class="nav-icon">schedule</mat-icon>
+        <mat-icon class="nav-icon" svgIcon="schedule"></mat-icon>
         {{ 'tasks.filters.pending' | transloco }}
       </button>
       <button class="nav-item" (click)="toggleCompleted(true)">
-        <mat-icon class="nav-icon">task_alt</mat-icon>
+        <mat-icon class="nav-icon" svgIcon="task_alt"></mat-icon>
         {{ 'tasks.filters.completed' | transloco }}
       </button>
     </nav>
 
     <div class="labels">
-      <h4><mat-icon>sell</mat-icon> Labels</h4>
+      <h4><mat-icon svgIcon="sell"></mat-icon> Labels</h4>
       <button
         class="label-chip"
         *ngFor="let label of labels"
@@ -41,7 +45,7 @@
   <section class="board-content">
     <header class="board-toolbar">
       <div class="search">
-        <mat-icon class="input-icon">search</mat-icon>
+        <mat-icon class="input-icon" svgIcon="search"></mat-icon>
         <input type="text" placeholder="{{ 'common.search' | transloco }}" [(ngModel)]="searchTerm" (keyup.enter)="applyFilters()" />
       </div>
       <span class="result-badge" aria-live="polite">Résultats: {{ total }}</span>
@@ -111,10 +115,10 @@
               aria-label="mark-done"
               [matTooltip]="todo.completed ? ('tasks.completedLock' | transloco) : ('tasks.markDone' | transloco)"
             >
-              <mat-icon [class.done-icon]="todo.completed">{{ todo.completed ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+              <mat-icon [class.done-icon]="todo.completed" [svgIcon]="todo.completed ? 'check_circle' : 'radio_button_unchecked'"></mat-icon>
             </button>
             <button mat-icon-button (click)="openDialog(todo)" [disabled]="todo.completed" aria-label="edit">
-              <mat-icon>edit</mat-icon>
+              <mat-icon svgIcon="edit"></mat-icon>
             </button>
             <button
               mat-icon-button
@@ -123,7 +127,7 @@
               [disabled]="todo.completed"
               [matTooltip]="todo.completed ? ('tasks.completedLock' | transloco) : ('common.delete' | transloco)"
             >
-              <mat-icon>delete</mat-icon>
+              <mat-icon svgIcon="delete"></mat-icon>
             </button>
           </div>
         </div>

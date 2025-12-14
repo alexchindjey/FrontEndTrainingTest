@@ -84,14 +84,20 @@
       "title": "Tâche supplémentaire 4",
       "personId": "2",
       "startDate": "2024-12-09",
-      "endDate": null,
-      "completed": false,
+      "endDate": "2025-12-14",
+      "completed": true,
       "priority": "Moyen",
       "labels": [
         "HTML",
         "CSS"
       ],
-      "description": "Tâche générée pour enrichir le jeu de données"
+      "description": "Tâche générée pour enrichir le jeu de données",
+      "person": {
+        "id": "2",
+        "name": "Bruno Dupont",
+        "email": "bruno.dupont@example.com",
+        "phone": "+33 6 00 00 00 02"
+      }
     },
     {
       "id": "5",

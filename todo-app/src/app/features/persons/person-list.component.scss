@@ -5,6 +5,7 @@
   gap: 1rem;
   margin-bottom: 1rem;
   flex-wrap: wrap;
+  color: var(--text);
 }
 
 .header-actions {
@@ -19,10 +20,16 @@
   gap: 0.5rem;
   border-radius: 14px;
   padding: 0.6rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
   color: var(--text);
   cursor: pointer;
+}
+
+.ghost-btn[disabled],
+.primary-btn[disabled] {
+  color: var(--muted);
+  opacity: 1;
 }
 
 .primary-btn {
@@ -36,7 +43,8 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-size: 0.75rem;
-  color: #cbd5e1;
+  color: var(--text);
+  opacity: 0.9;
   margin: 0;
 }
 
@@ -44,12 +52,28 @@ h1 {
   margin: 0;
   font-size: 1.8rem;
   font-weight: 700;
-  color: var(--text);
+  color: #0f172a;
+  opacity: 1;
 }
 
 .muted {
   margin: 0.25rem 0 0;
-  color: var(--muted);
+  color: var(--text);
+  opacity: 0.9;
+}
+
+.theme-dark .page-header {
+  color: #f8fafc;
+}
+
+.theme-dark .page-header h1 {
+  color: #f8fafc;
+  opacity: 1;
+}
+
+.theme-dark .page-header .muted {
+  color: #cbd5e1;
+  opacity: 1;
 }
 
 .surface {
@@ -72,37 +96,31 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  align-items: flex-end;
+  align-items: center;
 }
 
-.input-field {
-  flex: 1 1 260px;
-}
-
-.filters-line .mat-mdc-form-field {
-  --mdc-outlined-text-field-container-shape: 12px;
-  --mdc-outlined-text-field-outline-color: var(--border);
-  --mdc-outlined-text-field-focus-outline-color: var(--accent);
-  --mdc-filled-text-field-container-color: var(--surface-2);
-}
-
-.filters-line .mat-mdc-text-field-wrapper {
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  min-width: 260px;
   background: var(--surface-2);
-}
-
-.filters-line .mat-mdc-form-field-input-control {
   color: var(--text);
+  flex: 1;
 }
 
-.filters-line .mdc-text-field__input {
+.search-bar input {
+  border: none;
+  outline: none;
+  background: transparent;
   color: var(--text);
+  flex: 1;
 }
 
-.filters-line .mat-mdc-input-element {
-  color: var(--text);
-}
-
-.filters-line input::placeholder {
+.search-bar input::placeholder {
   color: var(--muted);
 }
 
@@ -114,8 +132,9 @@ h1 {
   min-width: 110px;
   height: 56px;
   border-radius: 12px;
-  color: #e2e8f0;
-  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--text);
+  border-color: var(--border);
+  background: var(--surface-2);
 }
 
 .filter-actions button {
@@ -125,7 +144,7 @@ h1 {
 .result-badge {
   padding: 0.4rem 0.75rem;
   border-radius: 999px;
-  background: #eef2ff;
+  background: var(--surface-2);
   color: var(--text);
   font-weight: 600;
 }
@@ -138,7 +157,7 @@ h1 {
 }
 
 ::ng-deep ng2-smart-table thead tr {
-  background: #f8fafc;
+  background: var(--surface-2);
 }
 
 ::ng-deep ng2-smart-table th,
@@ -150,14 +169,14 @@ h1 {
 
 ::ng-deep ng2-smart-table th {
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text);
 }
 
 ::ng-deep ng2-smart-table td {
-  color: #0f172a;
+  color: var(--text);
   font-weight: 500;
 }
 
 ::ng-deep ng2-smart-table tbody tr:hover {
-  background: #f8fbff;
+  background: var(--surface-2);
 }

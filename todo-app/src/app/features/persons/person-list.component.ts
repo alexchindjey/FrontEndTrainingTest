@@ -53,7 +53,6 @@ export class PersonListComponent implements OnInit {
   pageSize = 5;
   total = 0;
   search = '';
-  searchEmail = '';
   loading = false;
   personsCache: Person[] = [];
 
@@ -89,14 +88,12 @@ export class PersonListComponent implements OnInit {
       .list({ all: true })
       .subscribe((result) => {
         const term = this.search.trim().toLowerCase();
-        const emailTerm = this.searchEmail.trim().toLowerCase();
 
         const filtered = result.data.filter((p) => {
           const name = p.name?.toLowerCase() ?? '';
           const email = p.email?.toLowerCase() ?? '';
           const matchesTerm = !term || name.includes(term) || email.includes(term);
-          const matchesEmail = !emailTerm || email.includes(emailTerm) || name.includes(emailTerm);
-          return matchesTerm && matchesEmail;
+          return matchesTerm;
         });
 
         const totalPages = Math.max(Math.ceil(filtered.length / this.pageSize) - 1, 0);
@@ -156,11 +153,11 @@ export class PersonListComponent implements OnInit {
   }
 
   private highlightPerson(value: string, row: Person): string {
-    return this.highlightText(value ?? this.resolveFallback(row), [this.search, this.searchEmail]);
+    return this.highlightText(value ?? this.resolveFallback(row), [this.search]);
   }
 
   private highlightEmail(value: string): string {
-    return this.highlightText(value, [this.search, this.searchEmail]);
+    return this.highlightText(value, [this.search]);
   }
 
   private highlightText(text: string | undefined, terms: string[]): string {
