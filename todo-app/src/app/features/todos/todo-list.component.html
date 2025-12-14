@@ -47,12 +47,6 @@
             <mat-option *ngFor="let priority of priorities" [value]="priority">{{ priority }}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="w-44 dense">
-          <mat-select [(ngModel)]="filters.label" (selectionChange)="applyFilters()" [placeholder]="'tasks.label' | transloco">
-            <mat-option [value]="undefined">{{ 'tasks.filters.all' | transloco }}</mat-option>
-            <mat-option *ngFor="let label of labels" [value]="label">{{ label }}</mat-option>
-          </mat-select>
-        </mat-form-field>
         <button mat-stroked-button color="primary" (click)="loadTodos()" [disabled]="loading">
           {{ 'common.refresh' | transloco }}
         </button>
