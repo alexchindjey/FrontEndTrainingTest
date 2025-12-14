@@ -9,6 +9,7 @@
 .smart-table {
   width: 100%;
   background: var(--surface);
+  color: var(--text);
 }
 
 th,
@@ -70,6 +71,11 @@ th {
   font-weight: 500;
   border-color: var(--border);
   background: var(--surface);
+}
+
+.smart-table-wrapper td *,
+.smart-table-wrapper th * {
+  color: var(--text) !important;
 }
 
 .smart-table-wrapper tr:hover td {
