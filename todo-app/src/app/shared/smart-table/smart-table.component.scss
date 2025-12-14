@@ -8,11 +8,13 @@
 
 .smart-table {
   width: 100%;
+  background: var(--surface);
 }
 
 th,
 td {
   padding: 0.8rem;
+  background: var(--surface);
 }
 
 th {
@@ -67,6 +69,7 @@ th {
   color: var(--text);
   font-weight: 500;
   border-color: var(--border);
+  background: var(--surface);
 }
 
 .smart-table-wrapper tr:hover td {

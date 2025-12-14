@@ -83,6 +83,7 @@ h1 {
   --mdc-outlined-text-field-container-shape: 12px;
   --mdc-outlined-text-field-outline-color: var(--border);
   --mdc-outlined-text-field-focus-outline-color: var(--accent);
+  --mdc-filled-text-field-container-color: var(--surface-2);
 }
 
 .filters-line .mat-mdc-text-field-wrapper {
@@ -99,6 +100,10 @@ h1 {
 
 .filters-line .mat-mdc-input-element {
   color: var(--text);
+}
+
+.filters-line input::placeholder {
+  color: var(--muted);
 }
 
 .dense-field .mat-mdc-form-field-subscript-wrapper {
