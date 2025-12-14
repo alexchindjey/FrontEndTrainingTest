@@ -6,9 +6,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslocoModule } from '@ngneat/transloco';
 
+type ColumnType = 'text' | 'avatar';
+
 interface SmartTableColumn {
   title?: string;
   valuePrepareFunction?: (value: any, row: any) => any;
+  type?: ColumnType;
+  field?: string;
 }
 
 interface SmartTableSettings {
@@ -49,10 +53,25 @@ export class SmartTableComponent implements OnChanges {
   }
 
   renderCell(col: SmartTableColumn, value: any, row: any): any {
+    if (col.type === 'avatar') {
+      const name = col.field ? row[col.field] : (value ?? '');
+      return this.initials(name);
+    }
     return col.valuePrepareFunction ? col.valuePrepareFunction(value, row) : value;
   }
 
   onAction(action: string, row: any): void {
     this.custom.emit({ action, data: row });
+  }
+
+  private initials(name: string): string {
+    if (!name) return '';
+    return name
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((part) => part[0])
+      .join('')
+      .toUpperCase();
   }
 }

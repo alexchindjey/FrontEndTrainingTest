@@ -4,58 +4,56 @@
     <h1>{{ 'persons.title' | transloco }}</h1>
     <p class="muted">{{ 'persons.subtitle' | transloco }}</p>
   </div>
-  <div class="flex gap-3">
-    <button mat-stroked-button color="primary" (click)="loadPersons()" [disabled]="loading">
+  <div class="header-actions">
+    <button class="ghost-btn" (click)="loadPersons()" [disabled]="loading">
+      <svg class="icon-16" viewBox="0 0 24 24"><path d="M12 5v2l3-3-3-3v2c-4.42 0-8 3.58-8 8 0 .7.09 1.38.26 2.03L5.3 11.7C5.11 11.14 5 10.58 5 10c0-3.87 3.13-7 7-7zm6.74 4.97L18.7 12.3c.18.56.3 1.12.3 1.7 0 3.87-3.13 7-7 7v-2l-3 3 3 3v-2c4.42 0 8-3.58 8-8 0-.7-.09-1.38-.26-2.03z"/></svg>
       {{ 'common.refresh' | transloco }}
     </button>
-    <button mat-flat-button color="primary" (click)="openDialog()">
+    <button class="primary-btn" (click)="openDialog()">
+      <svg class="icon-16" viewBox="0 0 24 24"><path d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z"/></svg>
       {{ 'common.add' | transloco }}
     </button>
   </div>
 </div>
 
-<mat-card class="shadow-sm">
-  <div class="p-4 flex flex-col gap-4">
-    <div class="grid md:grid-cols-3 gap-3 items-start">
-      <mat-form-field appearance="outline" class="w-full md:w-80">
-        <mat-label>{{ 'persons.searchName' | transloco }}</mat-label>
-        <input matInput [(ngModel)]="search" (keyup.enter)="applySearch()" placeholder="ex: Alice" />
-        <button mat-icon-button matSuffix *ngIf="search" (click)="search=''; applySearch()" aria-label="Effacer">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
+<div class="surface">
+  <div class="filters-line">
+    <mat-form-field appearance="outline" class="input-field dense-field">
+      <mat-label>{{ 'persons.searchName' | transloco }}</mat-label>
+      <input matInput [(ngModel)]="search" (keyup.enter)="applySearch()" placeholder="ex: Alice" />
+      <button mat-icon-button matSuffix *ngIf="search" (click)="search=''; applySearch()" aria-label="Effacer">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
 
-      <mat-form-field appearance="outline" class="w-full md:w-80">
-        <mat-label>{{ 'persons.searchEmail' | transloco }}</mat-label>
-        <input matInput [(ngModel)]="searchEmail" (keyup.enter)="applySearch()" placeholder="ex: @example.com" />
-        <button mat-icon-button matSuffix *ngIf="searchEmail" (click)="searchEmail=''; applySearch()" aria-label="Effacer">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
+    <mat-form-field appearance="outline" class="input-field dense-field">
+      <mat-label>{{ 'persons.searchEmail' | transloco }}</mat-label>
+      <input matInput [(ngModel)]="searchEmail" (keyup.enter)="applySearch()" placeholder="ex: @example.com" />
+      <button mat-icon-button matSuffix *ngIf="searchEmail" (click)="searchEmail=''; applySearch()" aria-label="Effacer">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
 
-      <div class="flex gap-2 filter-actions">
-        <button mat-stroked-button color="primary" (click)="applySearch()" [disabled]="loading">
-          {{ 'common.filter' | transloco }}
-        </button>
-        <button mat-button (click)="search=''; searchEmail=''; applySearch()" [disabled]="loading">
-          {{ 'common.reset' | transloco }}
-        </button>
-      </div>
-    </div>
-
-    <ng2-smart-table
-      [settings]="settings"
-      [source]="source"
-      (custom)="onCustom($event)"
-      class="smart-table"
-    ></ng2-smart-table>
-
-    <mat-paginator
-      [length]="total"
-      [pageSize]="pageSize"
-      [pageIndex]="pageIndex"
-      [pageSizeOptions]="[5, 10, 20]"
-      (page)="onPageChange($event)"
-    ></mat-paginator>
+    <button mat-stroked-button color="primary" class="filter-btn" (click)="applySearch()" [disabled]="loading">
+      {{ 'common.filter' | transloco }}
+    </button>
+    <button mat-button class="filter-btn" (click)="search=''; searchEmail=''; applySearch()" [disabled]="loading">
+      {{ 'common.reset' | transloco }}
+    </button>
   </div>
-</mat-card>
+
+  <ng2-smart-table
+    [settings]="settings"
+    [source]="source"
+    (custom)="onCustom($event)"
+    class="smart-table"
+  ></ng2-smart-table>
+
+  <mat-paginator
+    [length]="total"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="[5, 10, 20]"
+    (page)="onPageChange($event)"
+  ></mat-paginator>
+</div>

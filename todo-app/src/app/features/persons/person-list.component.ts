@@ -46,7 +46,7 @@ export class PersonListComponent implements OnInit {
       position: 'right' as const
     },
     columns: {
-      name: { title: 'persons.columns.name' },
+      name: { title: 'persons.columns.name', type: 'avatar' as const, field: 'name' },
       email: { title: 'persons.columns.email' },
       phone: { title: 'persons.columns.phone' }
     },
