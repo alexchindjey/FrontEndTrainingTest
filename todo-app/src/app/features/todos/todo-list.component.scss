@@ -147,21 +147,72 @@
   --table-border: 1px solid #e2e8f0;
 }
 
-.filter-actions button {
-  min-width: 120px;
+.list-card {
+  position: relative;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
 }
 
-::ng-deep ng2-smart-table table {
-  border: var(--table-border);
-  border-collapse: collapse;
+.list-row {
+  display: grid;
+  grid-template-columns: 40px 70px 1.4fr 0.8fr 0.8fr 1fr 120px;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
 }
 
-::ng-deep ng2-smart-table thead tr {
-  background: #f8fafc;
+.list-row.header {
+  background: #f8fbff;
+  font-weight: 600;
+  color: #475569;
 }
 
-::ng-deep ng2-smart-table th,
-::ng-deep ng2-smart-table td {
-  padding: 0.75rem;
-  border: var(--table-border);
+.title-cell .title {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.title-cell .subtitle {
+  color: #475569;
+  font-size: 0.85rem;
+}
+
+.labels-cell {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.label-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.status-cell .pill {
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: #0f172a;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.status-cell .pill.done {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.date-cell {
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 0.35rem;
+  justify-content: flex-end;
 }

@@ -50,38 +50,6 @@ import autoTable from 'jspdf-autotable';
 })
 export class TodoListComponent implements OnInit {
   source: Todo[] = [];
-  settings = {
-    actions: {
-      custom: [
-        { name: 'edit', icon: 'edit', color: 'primary' },
-        { name: 'delete', icon: 'delete', color: 'warn' }
-      ],
-      position: 'right' as const
-    },
-    columns: {
-      title: { title: 'tasks.columns.title' },
-      person: {
-        title: 'tasks.columns.person',
-        valuePrepareFunction: (_: any, row: Todo) => row.person?.name ?? '',
-        type: 'avatar' as const,
-        field: 'person'
-      },
-      priority: { title: 'tasks.columns.priority' },
-      startDate: { title: 'tasks.columns.startDate' },
-      endDate: { title: 'tasks.columns.endDate' },
-      labels: {
-        title: 'tasks.columns.labels',
-        valuePrepareFunction: (labels: TodoLabel[]) => (labels || []).join(', ')
-      },
-      completed: {
-        title: 'tasks.columns.completed',
-        valuePrepareFunction: (completed: boolean) =>
-          completed ? this.transloco.translate('common.yes') : this.transloco.translate('common.no')
-      }
-    },
-    noDataMessage: 'tasks.noData'
-  };
-
   pageIndex = 0;
   pageSize = 5;
   total = 0;
@@ -92,6 +60,12 @@ export class TodoListComponent implements OnInit {
 
   readonly priorities = TODO_PRIORITIES;
   readonly labels = TODO_LABELS;
+  readonly labelColors: Record<string, string> = {
+    HTML: '#ef4444',
+    CSS: '#3b82f6',
+    'NODE JS': '#0ea5e9',
+    JQUERY: '#10b981'
+  };
 
   constructor(
     private readonly todoService: TodoService,
@@ -169,6 +143,26 @@ export class TodoListComponent implements OnInit {
   resetFilters(): void {
     this.filters = {};
     this.applyFilters();
+  }
+
+  avatarInitials(todo: Todo): string {
+    const name = todo.person?.name ?? '';
+    return name
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((part) => part[0])
+      .join('')
+      .toUpperCase();
+  }
+
+  labelColor(label: TodoLabel): string {
+    return this.labelColors[label] ?? '#cbd5e1';
+  }
+
+  scheduleText(todo: Todo): string {
+    const date = todo.endDate || todo.startDate;
+    return date ? `Schedule for ${date}` : '';
   }
 
   toggleCompleted(value: boolean | undefined): void {

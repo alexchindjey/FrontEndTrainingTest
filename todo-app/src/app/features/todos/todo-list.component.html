@@ -20,7 +20,7 @@
     <div class="labels">
       <h4>Labels</h4>
       <button class="label-chip" *ngFor="let label of labels" (click)="filters.label = label; applyFilters()">
-        <span class="dot" [ngClass]="label | lowercase"></span>
+        <span class="dot" [style.background]="labelColor(label)"></span>
         {{ label }}
       </button>
     </div>
@@ -56,17 +56,49 @@
       </div>
     </header>
 
-    <div class="table-wrapper">
+    <div class="list-card">
       <div class="absolute inset-0 flex items-center justify-center" *ngIf="loading">
         <mat-spinner diameter="48"></mat-spinner>
       </div>
       <div [class.opacity-50]="loading">
-        <ng2-smart-table
-          [settings]="settings"
-          [source]="source"
-          (custom)="onCustom($event)"
-          class="smart-table"
-        ></ng2-smart-table>
+        <div class="list-row header">
+          <span></span>
+          <span></span>
+          <span>{{ 'tasks.columns.title' | transloco }}</span>
+          <span>{{ 'tasks.columns.labels' | transloco }}</span>
+          <span>{{ 'tasks.columns.completed' | transloco }}</span>
+          <span>{{ 'tasks.columns.endDate' | transloco }}</span>
+          <span></span>
+        </div>
+        <div class="list-row" *ngFor="let todo of source">
+          <mat-checkbox color="primary"></mat-checkbox>
+          <div class="person-cell">
+            <div class="avatar">{{ avatarInitials(todo) }}</div>
+          </div>
+          <div class="title-cell">
+            <div class="title">{{ todo.title }}</div>
+            <div class="subtitle">{{ todo.person?.name }}</div>
+          </div>
+          <div class="labels-cell">
+            <span class="label-dot" *ngFor="let label of todo.labels" [style.background]="labelColor(label)"></span>
+          </div>
+          <div class="status-cell">
+            <span class="pill" [class.done]="todo.completed">
+              {{ todo.completed ? ('common.yes' | transloco) : ('common.no' | transloco) }}
+            </span>
+          </div>
+          <div class="date-cell">
+            {{ scheduleText(todo) }}
+          </div>
+          <div class="actions-cell">
+            <button mat-icon-button (click)="openDialog(todo)" aria-label="edit">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="onCustom({ action: 'delete', data: todo })" aria-label="delete">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
