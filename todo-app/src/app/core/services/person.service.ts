@@ -7,6 +7,7 @@ import { PaginatedResult } from '../models/paginated-result.model';
 import { Person } from '../models/person.model';
 
 export interface PersonQueryParams {
+  all?: boolean;
   page?: number;
   limit?: number;
   search?: string;
@@ -20,8 +21,10 @@ export class PersonService {
 
   list(params: PersonQueryParams = {}): Observable<PaginatedResult<Person>> {
     let httpParams = new HttpParams();
-    if (params.page) httpParams = httpParams.set('_page', params.page);
-    if (params.limit) httpParams = httpParams.set('_limit', params.limit);
+    if (!params.all) {
+      if (params.page) httpParams = httpParams.set('_page', params.page);
+      if (params.limit) httpParams = httpParams.set('_limit', params.limit);
+    }
     if (params.search) httpParams = httpParams.set('name_like', params.search);
     if (params.email) httpParams = httpParams.set('email_like', params.email);
 
