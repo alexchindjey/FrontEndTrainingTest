@@ -76,6 +76,12 @@ body {
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
 .icon-16 {
   width: 16px;
   height: 16px;
