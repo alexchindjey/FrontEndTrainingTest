@@ -82,7 +82,7 @@
           <span>{{ 'tasks.columns.endDate' | transloco }}</span>
           <span></span>
         </div>
-        <div class="list-row" *ngFor="let todo of source">
+        <div class="list-row" *ngFor="let todo of source" [class.completed-row]="todo.completed">
           <div class="title-cell">
             <div class="title" [innerHTML]="highlightText(todo.title, searchTerm)"></div>
           </div>
@@ -114,10 +114,11 @@
               [disabled]="todo.completed"
               aria-label="mark-done"
               [matTooltip]="todo.completed ? ('tasks.completedLock' | transloco) : ('tasks.markDone' | transloco)"
+              class="done-action"
             >
               <mat-icon [class.done-icon]="todo.completed" [svgIcon]="todo.completed ? 'check_circle' : 'radio_button_unchecked'"></mat-icon>
             </button>
-            <button mat-icon-button (click)="openDialog(todo)" [disabled]="todo.completed" aria-label="edit">
+            <button mat-icon-button (click)="openDialog(todo)" [disabled]="todo.completed" aria-label="edit" class="secondary-action">
               <mat-icon svgIcon="edit"></mat-icon>
             </button>
             <button
@@ -126,6 +127,7 @@
               aria-label="delete"
               [disabled]="todo.completed"
               [matTooltip]="todo.completed ? ('tasks.completedLock' | transloco) : ('common.delete' | transloco)"
+              class="secondary-action"
             >
               <mat-icon svgIcon="delete"></mat-icon>
             </button>

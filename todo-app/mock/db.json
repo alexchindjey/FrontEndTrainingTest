@@ -104,28 +104,40 @@
       "title": "Tâche supplémentaire 5",
       "personId": "3",
       "startDate": "2024-12-10",
-      "endDate": null,
-      "completed": false,
+      "endDate": "2025-12-14",
+      "completed": true,
       "priority": "Difficile",
       "labels": [
         "CSS",
         "NODE JS"
       ],
-      "description": "Tâche générée pour enrichir le jeu de données"
+      "description": "Tâche générée pour enrichir le jeu de données",
+      "person": {
+        "id": "3",
+        "name": "Chloé Bernard",
+        "email": "chloe.bernard@example.com",
+        "phone": "+33 6 00 00 00 03"
+      }
     },
     {
       "id": "6",
       "title": "Tâche supplémentaire 6",
       "personId": "1",
       "startDate": "2024-12-11",
-      "endDate": null,
-      "completed": false,
+      "endDate": "2025-12-14",
+      "completed": true,
       "priority": "Facile",
       "labels": [
         "NODE JS",
         "JQUERY"
       ],
-      "description": "Tâche générée pour enrichir le jeu de données"
+      "description": "Tâche générée pour enrichir le jeu de données",
+      "person": {
+        "id": "1",
+        "name": "Alice Martin",
+        "email": "alice.martin@example.com",
+        "phone": "+33 6 00 00 00 01"
+      }
     },
     {
       "id": "7",
