@@ -1,0 +1,19 @@
+# Node / build artifacts
+node_modules
+dist
+tmp
+coverage
+
+# Environment / editor
+.env
+.idea
+.vscode
+.DS_Store
+npm-debug.log*
+yarn.lock
+pnpm-lock.yaml
+
+# Git
+.git
+.gitignore
+.gitlab-ci.yml
