@@ -22,13 +22,13 @@
       <button
         class="label-chip"
         *ngFor="let label of labels"
-        (click)="sortByLabel = label; applyFilters()"
-        [class.active]="sortByLabel === label"
+        (click)="toggleLabel(label)"
+        [class.active]="isLabelSelected(label)"
       >
         <span class="dot" [style.background]="labelColor(label)"></span>
         {{ label }}
       </button>
-      <button class="label-chip ghost" (click)="sortByLabel = undefined; applyFilters()" [disabled]="!sortByLabel">
+      <button class="label-chip ghost" (click)="clearLabels()" [disabled]="!selectedLabels.length">
         {{ 'tasks.filters.all' | transloco }}
       </button>
     </div>

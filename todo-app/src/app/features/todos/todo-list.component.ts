@@ -58,7 +58,7 @@ export class TodoListComponent implements OnInit {
   pageSize = 5;
   total = 0;
   filters: { priority?: TodoPriority; label?: TodoLabel; completed?: boolean } = {};
-  sortByLabel: TodoLabel | undefined;
+  selectedLabels: TodoLabel[] = [];
   loading = false;
   persons: Person[] = [];
   searchTerm = '';
@@ -86,21 +86,25 @@ export class TodoListComponent implements OnInit {
 
   loadTodos(): void {
     this.loading = true;
-    const labelFilter = this.sortByLabel ?? this.filters.label;
+    const combinedLabels = new Set<TodoLabel>([
+      ...(this.selectedLabels || []),
+      ...(this.filters.label ? [this.filters.label] : [])
+    ]);
     this.todoService
       .list({
         page: this.pageIndex + 1,
         limit: this.pageSize,
         priority: this.filters.priority,
-        label: labelFilter,
         completed: this.filters.completed,
         search: this.searchTerm
       })
       .subscribe((result) => {
-        const data = labelFilter
-          ? result.data.filter((todo) => (todo.labels || []).includes(labelFilter))
-          : result.data;
-        this.total = labelFilter ? data.length : result.total;
+        const activeLabels = [...combinedLabels];
+        const data =
+          activeLabels.length > 0
+            ? result.data.filter((todo) => activeLabels.every((l) => (todo.labels || []).includes(l)))
+            : result.data;
+        this.total = data.length;
         this.source = data;
         this.loading = false;
       });
@@ -184,6 +188,23 @@ export class TodoListComponent implements OnInit {
 
   toggleCompleted(value: boolean | undefined): void {
     this.filters.completed = value;
+    this.applyFilters();
+  }
+
+  isLabelSelected(label: TodoLabel): boolean {
+    return this.selectedLabels.includes(label);
+  }
+
+  toggleLabel(label: TodoLabel): void {
+    this.selectedLabels = this.isLabelSelected(label)
+      ? this.selectedLabels.filter((l) => l !== label)
+      : [...this.selectedLabels, label];
+    this.applyFilters();
+  }
+
+  clearLabels(): void {
+    this.selectedLabels = [];
+    this.filters.label = undefined;
     this.applyFilters();
   }
 
