@@ -60,6 +60,16 @@ export class SmartTableComponent implements OnChanges {
     return col.valuePrepareFunction ? col.valuePrepareFunction(value, row) : value;
   }
 
+  renderText(col: SmartTableColumn, value: any, row: any): string {
+    const prepared = col.valuePrepareFunction ? col.valuePrepareFunction(value, row) : value;
+    return typeof prepared === 'string' ? prepared : prepared ?? '';
+  }
+
+  renderLabel(col: SmartTableColumn, row: any, fallback: any): string {
+    const value = col.valuePrepareFunction ? col.valuePrepareFunction(fallback, row) : fallback;
+    return typeof value === 'string' ? value : value ?? '';
+  }
+
   onAction(action: string, row: any): void {
     this.custom.emit({ action, data: row });
   }

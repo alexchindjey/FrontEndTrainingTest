@@ -17,6 +17,24 @@
       "name": "Chloé Bernard",
       "email": "chloe.bernard@example.com",
       "phone": "+33 6 00 00 00 03"
+    },
+    {
+      "id": "87cd",
+      "name": "Alex Chindjey",
+      "email": "alexchindjey@gmail.com",
+      "phone": "+237600000001"
+    },
+    {
+      "id": "3af1",
+      "name": "Bob Walter",
+      "email": "bodwalter@gmail.com",
+      "phone": "+1234432123"
+    },
+    {
+      "id": "6c56",
+      "name": "Jane Marry",
+      "email": "janemarry@gmail.com",
+      "phone": "+1345123659"
     }
   ],
   "todos": [
@@ -273,13 +291,19 @@
       "title": "Tâche supplémentaire 19",
       "personId": "2",
       "startDate": "2024-12-24",
-      "endDate": null,
-      "completed": false,
+      "endDate": "2025-12-14",
+      "completed": true,
       "priority": "Moyen",
       "labels": [
         "JQUERY"
       ],
-      "description": "Tâche générée pour enrichir le jeu de données"
+      "description": "Tâche générée pour enrichir le jeu de données",
+      "person": {
+        "id": "2",
+        "name": "Bruno Dupont",
+        "email": "bruno.dupont@example.com",
+        "phone": "+33 6 00 00 00 02"
+      }
     },
     {
       "id": "20",
@@ -294,6 +318,27 @@
         "CSS"
       ],
       "description": "Tâche générée pour enrichir le jeu de données"
+    },
+    {
+      "id": "7abc",
+      "title": "Moderniser l'ensemble du UI",
+      "startDate": "2025-12-14",
+      "endDate": null,
+      "completed": false,
+      "priority": "Difficile",
+      "labels": [
+        "HTML",
+        "CSS",
+        "NODE JS"
+      ],
+      "description": "Ajouter des animations dans l'UI",
+      "personId": "87cd",
+      "person": {
+        "id": "87cd",
+        "name": "Alex Chindjey",
+        "email": "alexchindjey@gmail.com",
+        "phone": "+237600000001"
+      }
     }
   ]
 }
